@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro | Perfume Deluxe</title>
+  <link rel="stylesheet" href="/frontend/css/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceefb, #f7f3ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(200, 150, 255, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: #b65fcf;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #e0cfee;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      background-color: #faf9fc;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #b65fcf;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .form-container button:hover {
+      background-color: #9d4bb8;
+    }
+
+    #mensagemCadastro {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Crie sua conta</h2>
+    <form id="formCadastro">
+      <input type="text" id="nome" placeholder="Nome completo" required />
+      <input type="email" id="email" placeholder="E-mail" required />
+      <input type="password" id="senha" placeholder="Senha" required />
+      <input type="password" id="confirmarSenha" placeholder="Confirmar senha" required />
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p id="mensagemCadastro"></p>
+  </div>
+
+  <script>
+    document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+      try {
+        const resposta = await fetch('https://loja-perfume-backend.onrender.com/api/cadastro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, email, senha, confirmarSenha }),
+        });
+
+        const dados = await resposta.json();
+        document.getElementById('mensagemCadastro').textContent = dados.mensagem;
+        document.getElementById('mensagemCadastro').style.color = resposta.ok ? 'green' : 'red';
+
+        if (resposta.ok) {
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        }
+
+      } catch (erro) {
+        console.error('Erro no cadastro:', erro);
+        document.getElementById('mensagemCadastro').textContent = 'Erro ao cadastrar. Tente novamente.';
+        document.getElementById('mensagemCadastro').style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>

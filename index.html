@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfume Luxe</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px 0;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .login-cadastro {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .hero {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    /* 🌟 NOVO CARROSSEL AQUI */
+    .carousel {
+      margin: 40px auto;
+      max-width: 920px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 20px;
+      animation: scrollCarousel 20s linear infinite;
+      width: max-content;
+    }
+
+    .carousel-track img {
+      width: 220px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    @keyframes scrollCarousel {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .produtos {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .produto {
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: white;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo roxo">Perfume Luxe</h1>
+      <nav>
+        <ul class="menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Perfumes</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="login-cadastro">
+        <a href="login.html" class="roxo" id="login-link">Entrar</a>
+        <a href="cadastro.html" class="roxo" id="cadastro-link">Cadastrar</a>
+        <button class="carrinho-btn roxo">🛒 Carrinho</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Fragrância, Qualidade e Felicidade!</h2>
+      <h3>Ofertas Especiais</h3>
+
+      <!-- 🌟 NOVO CARROSSEL -->
+      <div class="carousel">
+        <div class="carousel-track">
+          <img src="img/perfume1.jpg" alt="Perfume 1">
+          <img src="img/perfume2.jpg" alt="Perfume 2">
+          <img src="img/perfume3.jpg" alt="Perfume 3">
+          <img src="img/perfume4.jpg" alt="Perfume 4">
+          <img src="img/perfume5.jpg" alt="Perfume 5">
+          <img src="img/perfume6.jpg" alt="Perfume 6">
+          <!-- Duplicadas para efeito de rolagem infinita -->
+          <img src="img/perfume1.jpg" alt="Perfume 1">
+          <img src="img/perfume2.jpg" alt="Perfume 2">
+          <img src="img/perfume3.jpg" alt="Perfume 3">
+          <img src="img/perfume4.jpg" alt="Perfume 4">
+          <img src="img/perfume5.jpg" alt="Perfume 5">
+          <img src="img/perfume6.jpg" alt="Perfume 6">
+        </div>
+      </div>
+
+      <h3>Confira:</h3>
+      <div class="produtos">
+        <div class="produto">
+          <img src="img/perfume1.jpg" alt="Perfume Clássico">
+          <h4>Perfume Clássico</h4>
+          <p><del>R$ 199,00</del> <strong>R$ 149,00</strong></p>
+        </div>
+        <div class="produto">
+          <img src="img/perfume2.jpg" alt="Perfume Elegance">
+          <h4>Perfume Elegance</h4>
+          <p><del>R$ 250,00</del> <strong>R$ 199,00</strong></p>
+        </div>
+        <div class="produto">
+          <img src="img/perfume3.jpg" alt="Perfume Noite">
+          <h4>Perfume Noite</h4>
+          <p><del>R$ 220,00</del> <strong>R$ 180,00</strong></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Perfume Luxe. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Script para esconder/mostrar links de login/cadastro conforme o estado de login
+    const loginLink = document.getElementById('login-link');
+    const cadastroLink = document.getElementById('cadastro-link');
+
+    // Supondo que o login seja armazenado em sessionStorage após login bem-sucedido
+    const userLoggedIn = sessionStorage.getItem('userLoggedIn');
+
+    if (userLoggedIn) {
+      loginLink.style.display = 'none';
+      cadastroLink.style.display = 'none';
+    } else {
+      loginLink.style.display = 'block';
+      cadastroLink.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

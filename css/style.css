@@ -1,0 +1,189 @@
+/* Fonte */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: #111;
+}
+
+.roxo {
+    
+    color: #c084fc;
+  }
+  
+
+header {
+  background-color: #111;
+  padding: 20px 0;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: #ccc;
+}
+
+.user-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.user-actions a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.carrinho-btn {
+  background-color: #c084fc;
+  color: #111;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hero {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* ==================== CARROSSEL ==================== */
+
+.carousel {
+    margin: 40px auto;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    max-width: 920px; /* 4 imagens de 220px + 3 gaps de 20px */
+  }
+  
+  .carousel h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .carousel-track {
+    display: flex;
+    gap: 20px;
+    animation: scrollCarousel 20s linear infinite;
+    width: fit-content;
+  }
+  
+  .carousel-track img {
+    width: 220px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }  
+
+/* Duplicação de imagens para loop infinito perfeito */
+.carousel-track img:nth-child(n+7) {
+  display: none;
+}
+
+/* Animação contínua */
+@keyframes scrollCarousel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+/* ==================== PRODUTOS ==================== */
+
+.produtos {
+  padding: 40px 20px;
+}
+
+.produtos h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+.produtos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.produto {
+  width: 220px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s;
+}
+
+.produto:hover {
+  transform: translateY(-5px);
+}
+
+.produto img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.produto h3 {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.preco {
+  font-size: 16px;
+}
+
+.desconto {
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 5px;
+}
+
+
