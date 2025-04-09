@@ -80,19 +80,22 @@
     <p id="mensagemLogin">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
   </div>
 
+  <!-- Script Javascript para tratar o login -->
   <script>
     const loginForm = document.getElementById("login-form");
     loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
+      e.preventDefault();  // Evitar o comportamento padrão do formulário (que seria recarregar a página)
 
       const email = document.getElementById("email").value;
       const senha = document.getElementById("senha").value;
 
-      // Validação
+      // Validação dos campos
       if (!email || !senha) {
         alert("Por favor, preencha todos os campos.");
         return;
       }
+
+      console.log('Enviando requisição para o backend...'); // Log antes da requisição
 
       try {
         // Enviar os dados para o backend
@@ -107,18 +110,20 @@
           }),
         });
 
+        console.log('Resposta do backend recebida'); // Log após a requisição
+
         if (!response.ok) {
           throw new Error("Erro ao fazer login.");
         }
 
         const data = await response.json();
-        console.log(data); // Verifique a resposta do backend no console
+        console.log('Resposta do backend:', data); // Log para ver a resposta completa do backend
 
         if (data.session) {
           // Se o login for bem-sucedido, armazena o estado de login e redireciona
           sessionStorage.setItem("userLoggedIn", true);
 
-          // Atraso de 500ms para garantir que a sessão foi armazenada
+          // Atraso de 500ms para garantir que a sessão foi armazenada antes do redirecionamento
           setTimeout(() => {
             window.location.href = "index.html"; // Redireciona para a página principal após login
           }, 500);
@@ -126,6 +131,7 @@
           alert(data.mensagem || "Erro desconhecido.");
         }
       } catch (error) {
+        console.error("Erro ao fazer login:", error); // Log de erro detalhado
         alert("Erro ao fazer login. " + error.message);
       }
     });
