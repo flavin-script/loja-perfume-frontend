@@ -68,6 +68,14 @@
       font-size: 14px;
       font-weight: 500;
     }
+
+    #mensagemCadastro.error {
+      color: red;
+    }
+
+    #mensagemCadastro.success {
+      color: green;
+    }
   </style>
 </head>
 <body>
@@ -85,6 +93,8 @@
 
   <script>
     const cadastroForm = document.getElementById("cadastro-form");
+    const mensagemCadastro = document.getElementById("mensagemCadastro");
+
     cadastroForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -95,12 +105,14 @@
 
       // Validação
       if (!nome || !email || !senha || !confirmarSenha) {
-        alert("Por favor, preencha todos os campos.");
+        mensagemCadastro.classList.add('error');
+        mensagemCadastro.textContent = "Por favor, preencha todos os campos.";
         return;
       }
 
       if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem.");
+        mensagemCadastro.classList.add('error');
+        mensagemCadastro.textContent = "As senhas não coincidem.";
         return;
       }
 
@@ -118,22 +130,27 @@
           }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          const errorData = await response.json();
-          alert(`Erro: ${errorData.mensagem || "Erro desconhecido."}`);
-          throw new Error(errorData.mensagem || "Erro ao cadastrar.");
+          mensagemCadastro.classList.add('error');
+          mensagemCadastro.textContent = `Erro: ${data.mensagem || "Erro desconhecido."}`;
+          throw new Error(data.mensagem || "Erro ao cadastrar.");
         }
 
-        const data = await response.json();
-        
         if (data.user) {
-          alert("Cadastro realizado com sucesso!");
-          window.location.href = "index.html"; // Redireciona para a página principal
+          mensagemCadastro.classList.add('success');
+          mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
+          setTimeout(() => {
+            window.location.href = "index.html"; // Redireciona para a página principal
+          }, 2000); // Espera 2 segundos antes do redirecionamento
         } else {
-          alert(data.mensagem || "Erro desconhecido.");
+          mensagemCadastro.classList.add('error');
+          mensagemCadastro.textContent = data.mensagem || "Erro desconhecido.";
         }
       } catch (error) {
-        alert("Erro ao cadastrar. " + error.message);
+        mensagemCadastro.classList.add('error');
+        mensagemCadastro.textContent = "Erro ao cadastrar. " + error.message;
       }
     });
   </script>
