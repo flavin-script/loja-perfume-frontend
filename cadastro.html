@@ -120,6 +120,7 @@
           // Tratar erro 400 detalhadamente
           const errorData = await response.json();
           console.error("Erro de cadastro:", errorData);
+          alert(`Erro: ${errorData.mensagem || "Erro desconhecido."}`);
           throw new Error(errorData.mensagem || "Erro ao cadastrar.");
         }
 
@@ -132,7 +133,7 @@
           alert(data.mensagem || "Erro desconhecido.");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Erro:", error);
         alert("Erro ao cadastrar. " + error.message);
       }
     });
