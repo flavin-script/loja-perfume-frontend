@@ -5,6 +5,7 @@
   <title>Login | Perfume Deluxe</title>
   <link rel="stylesheet" href="/frontend/css/style.css">
   <style>
+    /* Seus estilos permanecem inalterados */
     body {
       margin: 0;
       padding: 0;
@@ -80,12 +81,16 @@
     <p id="mensagemLogin"></p>
   </div>
 
+  <!-- Carregando o Supabase corretamente -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
+
   <script>
+    // Inicializando o Supabase após o carregamento do script
     const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // truncado por segurança
+    const supabaseKey = 'sua-chave-api-aqui'; // Substitua com sua chave real
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+    // Lógica de login
     document.getElementById('formLogin').addEventListener('submit', async (e) => {
       e.preventDefault();
 

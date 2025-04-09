@@ -82,12 +82,15 @@
     <p id="mensagemCadastro"></p>
   </div>
 
+  <!-- Carregando o script do Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
   <script>
+    // Inicializando o Supabase corretamente
     const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // truncado por segurança
+    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // Substitua com sua chave real
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+    // Lógica de cadastro
     document.getElementById('formCadastro').addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -98,6 +101,7 @@
       const botao = document.getElementById('botaoCadastro');
       const mensagem = document.getElementById('mensagemCadastro');
 
+      // Verificando se as senhas coincidem
       if (senha !== confirmarSenha) {
         mensagem.textContent = 'As senhas não coincidem.';
         mensagem.style.color = 'red';
@@ -129,7 +133,7 @@
             mensagem.textContent = 'Usuário cadastrado com sucesso!';
             mensagem.style.color = 'green';
             setTimeout(() => {
-              window.location.href = 'login.html';
+              window.location.href = 'login.html'; // Redireciona para login após 1.5 segundos
             }, 1500);
           }
         }
