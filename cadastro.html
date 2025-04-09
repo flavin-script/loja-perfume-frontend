@@ -5,6 +5,7 @@
   <title>Cadastro | Perfume Luxe</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* Estilos do formulário */
     body {
       margin: 0;
       padding: 0;
@@ -89,6 +90,10 @@
       const email = document.getElementById("email").value;
       const senha = document.getElementById("senha").value;
       const confirmarSenha = document.getElementById("confirmar-senha").value;
+
+      // Logs de comparação de senhas
+      console.log("Senha:", senha);
+      console.log("Confirmar Senha:", confirmarSenha);
 
       // Validação
       if (!email || !senha || !confirmarSenha) {
