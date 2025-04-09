@@ -85,8 +85,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
 
   <script>
-    // Esperando o carregamento do script do Supabase
-    window.onload = function() {
+    // Aguardar o carregamento completo do script Supabase
+    window.addEventListener('load', () => {
+      // Agora o script do Supabase já deve estar carregado
       const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
       const supabaseKey = 'seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
       const supabase = supabase.createClient(supabaseUrl, supabaseKey);
@@ -121,7 +122,7 @@
           mensagem.style.color = 'red';
         }
       });
-    };
+    });
   </script>
 </body>
 </html>
