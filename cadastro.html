@@ -145,9 +145,13 @@
         if (data.user) {
           mensagemCadastro.classList.add('success');
           mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
+          
+          // Log para verificar se o código chegou aqui
+          console.log("Redirecionando após cadastro bem-sucedido.");
 
           // Forçar o redirecionamento após 2 segundos para garantir que o usuário veja a mensagem
           setTimeout(() => {
+            console.log("Redirecionamento para index.html");
             window.location.assign("index.html");
           }, 2000); // Redirecionamento após 2 segundos
         } else {
