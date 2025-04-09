@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastro | Perfume Deluxe</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/frontend/css/style.css">
   <style>
     body {
       margin: 0;
@@ -65,6 +65,7 @@
       text-align: center;
       margin-top: 15px;
       font-size: 14px;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -83,9 +84,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
   <script>
-    // Configuração do Supabase
-    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';  // Substitua com sua URL do Supabase
-    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';  // Substitua com sua chave de API
+    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
+    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // truncado por segurança
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     document.getElementById('formCadastro').addEventListener('submit', async (e) => {
@@ -109,8 +109,7 @@
       mensagem.textContent = '';
 
       try {
-        // Criando o usuário no Supabase
-        const { user, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email: email,
           password: senha,
         });
@@ -119,9 +118,8 @@
           mensagem.textContent = error.message;
           mensagem.style.color = 'red';
         } else {
-          // A partir daqui, você pode salvar o nome do usuário em uma tabela no Supabase, se necessário.
-          const { data, error: insertError } = await supabase
-            .from('usuarios')  // Nome da tabela onde você salva os dados adicionais do usuário
+          const { error: insertError } = await supabase
+            .from('usuarios')
             .insert([{ nome: nome, email: email }]);
 
           if (insertError) {
@@ -131,7 +129,7 @@
             mensagem.textContent = 'Usuário cadastrado com sucesso!';
             mensagem.style.color = 'green';
             setTimeout(() => {
-              window.location.href = 'login.html';  // Redireciona para a página de login
+              window.location.href = 'login.html';
             }, 1500);
           }
         }
