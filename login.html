@@ -85,10 +85,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
 
   <script>
-    // Inicializando o Supabase após o carregamento do script
-    document.addEventListener("DOMContentLoaded", () => {
+    // Esperando o carregamento do script do Supabase
+    window.onload = function() {
       const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
+      const supabaseKey = 'seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
       const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
       // Lógica de login
@@ -100,29 +100,20 @@
         const mensagem = document.getElementById('mensagemLogin');
 
         try {
-          const { data, error } = await supabase
-            .from('usuarios')  // A tabela onde os usuários estão armazenados
-            .select('*')
-            .eq('email', email)
-            .single();
+          const { error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: senha,
+          });
 
           if (error) {
-            mensagem.textContent = 'Usuário não encontrado';
+            mensagem.textContent = error.message;
             mensagem.style.color = 'red';
           } else {
-            // Comparar a senha fornecida com a criptografada
-            const senhaCorreta = await bcrypt.compare(senha, data.senha);
-
-            if (senhaCorreta) {
-              mensagem.textContent = 'Login bem-sucedido!';
-              mensagem.style.color = 'green';
-              setTimeout(() => {
-                window.location.href = 'index.html';  // Redireciona após login bem-sucedido
-              }, 1500);
-            } else {
-              mensagem.textContent = 'Senha incorreta';
-              mensagem.style.color = 'red';
-            }
+            mensagem.textContent = 'Login bem-sucedido!';
+            mensagem.style.color = 'green';
+            setTimeout(() => {
+              window.location.href = 'index.html';  // Redireciona após login bem-sucedido
+            }, 1500);
           }
         } catch (erro) {
           console.error('Erro no login:', erro);
@@ -130,7 +121,7 @@
           mensagem.style.color = 'red';
         }
       });
-    });
+    };
   </script>
 </body>
 </html>
