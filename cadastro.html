@@ -91,10 +91,6 @@
       const senha = document.getElementById("senha").value;
       const confirmarSenha = document.getElementById("confirmar-senha").value;
 
-      // Logs de comparação de senhas
-      console.log("Senha:", senha);
-      console.log("Confirmar Senha:", confirmarSenha);
-
       // Validação
       if (!email || !senha || !confirmarSenha) {
         alert("Por favor, preencha todos os campos.");
@@ -105,8 +101,6 @@
         alert("As senhas não coincidem.");
         return;
       }
-
-      console.log("Enviando os seguintes dados:", { email, senha });
 
       try {
         // Enviar os dados para o backend
@@ -122,9 +116,7 @@
         });
 
         if (!response.ok) {
-          // Tratar erro 400 detalhadamente
           const errorData = await response.json();
-          console.error("Erro de cadastro:", errorData);
           alert(`Erro: ${errorData.mensagem || "Erro desconhecido."}`);
           throw new Error(errorData.mensagem || "Erro ao cadastrar.");
         }
@@ -133,12 +125,11 @@
         
         if (data.user) {
           alert("Cadastro realizado com sucesso!");
-          window.location.href = "login.html";
+          window.location.href = "login.html"; // Redireciona para o login
         } else {
           alert(data.mensagem || "Erro desconhecido.");
         }
       } catch (error) {
-        console.error("Erro:", error);
         alert("Erro ao cadastrar. " + error.message);
       }
     });
