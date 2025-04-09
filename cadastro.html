@@ -98,10 +98,31 @@
       }
 
       try {
-        // Aqui você vai integrar com o Supabase para cadastro real.
-        // Simulando cadastro bem-sucedido:
-        alert("Cadastro realizado com sucesso!");
-        window.location.href = "login.html";
+        // Enviar os dados para o backend (ajuste a URL conforme necessário)
+        const response = await fetch('http://localhost:3000/cadastrar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nome: nome,
+            email: email,
+            senha: senha,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao cadastrar.");
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert("Cadastro realizado com sucesso!");
+          window.location.href = "login.html";
+        } else {
+          alert(data.message || "Erro desconhecido.");
+        }
       } catch (error) {
         console.error(error);
         alert("Erro ao cadastrar.");

@@ -96,10 +96,31 @@
       }
 
       try {
-        // Aqui você vai integrar com o Supabase para autenticação real.
-        // Simulando login bem-sucedido:
-        sessionStorage.setItem("userLoggedIn", true);
-        window.location.href = "index.html";
+        // Enviar os dados para o backend (ajuste a URL conforme necessário)
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            senha: senha,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao fazer login.");
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Se o login for bem-sucedido, armazena o estado de login e redireciona
+          sessionStorage.setItem("userLoggedIn", true);
+          window.location.href = "index.html";
+        } else {
+          alert(data.message || "Erro desconhecido.");
+        }
       } catch (error) {
         console.error(error);
         alert("Erro ao fazer login.");
