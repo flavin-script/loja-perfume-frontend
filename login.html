@@ -82,44 +82,46 @@
   </div>
 
   <!-- Carregando o Supabase corretamente -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.16.0/dist/umd/supabase.min.js"></script>
+  
   <script>
-    // Inicializando o Supabase de forma correta
-    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    window.onload = function() {
+      const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
+      
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Lógica de login
-    document.getElementById('formLogin').addEventListener('submit', async (e) => {
-      e.preventDefault();
+      // Lógica de login
+      document.getElementById('formLogin').addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
-      const mensagem = document.getElementById('mensagemLogin');
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+        const mensagem = document.getElementById('mensagemLogin');
 
-      try {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email,
-          password: senha,
-        });
+        try {
+          const { error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: senha,
+          });
 
-        if (error) {
-          mensagem.textContent = error.message;
+          if (error) {
+            mensagem.textContent = error.message;
+            mensagem.style.color = 'red';
+          } else {
+            mensagem.textContent = 'Login bem-sucedido!';
+            mensagem.style.color = 'green';
+            setTimeout(() => {
+              window.location.href = 'index.html';  // Redireciona após login bem-sucedido
+            }, 1500);
+          }
+        } catch (erro) {
+          console.error('Erro no login:', erro);
+          mensagem.textContent = 'Erro ao fazer login. Tente novamente.';
           mensagem.style.color = 'red';
-        } else {
-          mensagem.textContent = 'Login bem-sucedido!';
-          mensagem.style.color = 'green';
-          setTimeout(() => {
-            window.location.href = 'index.html';  // Redireciona após login bem-sucedido
-          }, 1500);
         }
-      } catch (erro) {
-        console.error('Erro no login:', erro);
-        mensagem.textContent = 'Erro ao fazer login. Tente novamente.';
-        mensagem.style.color = 'red';
-      }
-    });
+      });
+    };
   </script>
 </body>
 </html>
