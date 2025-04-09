@@ -87,7 +87,7 @@
   <script>
     // Inicializando o Supabase após o carregamento do script
     const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     // Lógica de login
@@ -99,20 +99,29 @@
       const mensagem = document.getElementById('mensagemLogin');
 
       try {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email,
-          password: senha,
-        });
+        const { data, error } = await supabase
+          .from('usuarios')  // A tabela onde os usuários estão armazenados
+          .select('*')
+          .eq('email', email)
+          .single();
 
         if (error) {
-          mensagem.textContent = error.message;
+          mensagem.textContent = 'Usuário não encontrado';
           mensagem.style.color = 'red';
         } else {
-          mensagem.textContent = 'Login bem-sucedido!';
-          mensagem.style.color = 'green';
-          setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 1500);
+          // Comparar a senha fornecida com a criptografada
+          const senhaCorreta = await bcrypt.compare(senha, data.senha);
+
+          if (senhaCorreta) {
+            mensagem.textContent = 'Login bem-sucedido!';
+            mensagem.style.color = 'green';
+            setTimeout(() => {
+              window.location.href = 'index.html';  // Redireciona após login bem-sucedido
+            }, 1500);
+          } else {
+            mensagem.textContent = 'Senha incorreta';
+            mensagem.style.color = 'red';
+          }
         }
       } catch (erro) {
         console.error('Erro no login:', erro);
