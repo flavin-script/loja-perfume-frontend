@@ -116,10 +116,10 @@
         if (data.session) {
           // Se o login for bem-sucedido, armazena o estado de login e redireciona
           sessionStorage.setItem("userLoggedIn", true);
-          
+
           // Atraso de 500ms para garantir que a sessão foi armazenada
           setTimeout(() => {
-            window.location.href = "index.html"; // Redireciona para a página principal após login
+            window.location.replace("index.html"); // Redireciona para a página principal após login
           }, 500);
         } else {
           alert(data.mensagem || "Erro desconhecido.");
