@@ -149,11 +149,10 @@
           // Log para verificar se o código chegou aqui
           console.log("Redirecionando após cadastro bem-sucedido.");
 
-          // Forçar o redirecionamento após 2 segundos para garantir que o usuário veja a mensagem
+          // Redirecionamento direto após 2 segundos
           setTimeout(() => {
-            console.log("Redirecionamento para index.html");
-            window.location.assign("index.html");  // Redireciona após 2 segundos
-          }, 2000); // Tempo de espera para o redirecionamento
+            window.location.href = "index.html";  // Tente usar href ao invés de assign
+          }, 2000);
         } else {
           mensagemCadastro.classList.add('error');
           mensagemCadastro.textContent = data.mensagem || "Erro desconhecido.";
