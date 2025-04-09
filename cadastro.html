@@ -155,7 +155,7 @@
           mensagemCadastro.classList.add('success');
           mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
           setTimeout(() => {
-            window.location.href = "index.html"; // Redireciona para a página principal
+            window.location.replace("index.html"); // Redireciona para a página principal
           }, 2000); // Espera 2 segundos antes do redirecionamento
         } else {
           mensagemCadastro.classList.add('error');
