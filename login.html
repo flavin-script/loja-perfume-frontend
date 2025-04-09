@@ -119,9 +119,10 @@
         const data = await response.json();
         console.log('Resposta do backend:', data); // Log para ver a resposta completa do backend
 
-        if (data.session) {
+        if (data.usuario && data.usuario.id) {
           // Se o login for bem-sucedido, armazena o estado de login e redireciona
           sessionStorage.setItem("userLoggedIn", true);
+          sessionStorage.setItem("usuario", JSON.stringify(data.usuario)); // Armazenar informações do usuário
 
           // Atraso de 500ms para garantir que a sessão foi armazenada antes do redirecionamento
           setTimeout(() => {
