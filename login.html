@@ -85,14 +85,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.16.0/dist/umd/supabase.min.js"></script>
   
   <script>
-    // Certificando-se de que o script do Supabase foi carregado antes de usá-lo
+    // Inicializando o cliente Supabase logo no início
+    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Esperar o carregamento completo do DOM
     document.addEventListener('DOMContentLoaded', function () {
-      const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
-
-      // Inicializando o cliente Supabase
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
       // Lógica de login
       document.getElementById('formLogin').addEventListener('submit', async (e) => {
         e.preventDefault();
