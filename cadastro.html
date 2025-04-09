@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastro | Perfume Deluxe</title>
-  <link rel="stylesheet" href="/frontend/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <style>
     body {
       margin: 0;
@@ -76,12 +76,18 @@
       <input type="email" id="email" placeholder="E-mail" required />
       <input type="password" id="senha" placeholder="Senha" required />
       <input type="password" id="confirmarSenha" placeholder="Confirmar senha" required />
-      <button type="submit">Cadastrar</button>
+      <button type="submit" id="botaoCadastro">Cadastrar</button>
     </form>
     <p id="mensagemCadastro"></p>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
   <script>
+    // Configuração do Supabase
+    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';  // Substitua com sua URL do Supabase
+    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';  // Substitua com sua chave de API
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
     document.getElementById('formCadastro').addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -89,28 +95,53 @@
       const email = document.getElementById('email').value;
       const senha = document.getElementById('senha').value;
       const confirmarSenha = document.getElementById('confirmarSenha').value;
+      const botao = document.getElementById('botaoCadastro');
+      const mensagem = document.getElementById('mensagemCadastro');
+
+      if (senha !== confirmarSenha) {
+        mensagem.textContent = 'As senhas não coincidem.';
+        mensagem.style.color = 'red';
+        return;
+      }
+
+      botao.disabled = true;
+      botao.textContent = 'Cadastrando...';
+      mensagem.textContent = '';
 
       try {
-        const resposta = await fetch('https://loja-perfume-backend.onrender.com/api/cadastro', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome, email, senha, confirmarSenha }),
+        // Criando o usuário no Supabase
+        const { user, error } = await supabase.auth.signUp({
+          email: email,
+          password: senha,
         });
 
-        const dados = await resposta.json();
-        document.getElementById('mensagemCadastro').textContent = dados.mensagem;
-        document.getElementById('mensagemCadastro').style.color = resposta.ok ? 'green' : 'red';
+        if (error) {
+          mensagem.textContent = error.message;
+          mensagem.style.color = 'red';
+        } else {
+          // A partir daqui, você pode salvar o nome do usuário em uma tabela no Supabase, se necessário.
+          const { data, error: insertError } = await supabase
+            .from('usuarios')  // Nome da tabela onde você salva os dados adicionais do usuário
+            .insert([{ nome: nome, email: email }]);
 
-        if (resposta.ok) {
-          setTimeout(() => {
-            window.location.href = 'index.html';
-          }, 1500);
+          if (insertError) {
+            mensagem.textContent = 'Erro ao salvar os dados. Tente novamente.';
+            mensagem.style.color = 'red';
+          } else {
+            mensagem.textContent = 'Usuário cadastrado com sucesso!';
+            mensagem.style.color = 'green';
+            setTimeout(() => {
+              window.location.href = 'login.html';  // Redireciona para a página de login
+            }, 1500);
+          }
         }
-
       } catch (erro) {
         console.error('Erro no cadastro:', erro);
-        document.getElementById('mensagemCadastro').textContent = 'Erro ao cadastrar. Tente novamente.';
-        document.getElementById('mensagemCadastro').style.color = 'red';
+        mensagem.textContent = 'Erro ao cadastrar. Tente novamente.';
+        mensagem.style.color = 'red';
+      } finally {
+        botao.disabled = false;
+        botao.textContent = 'Cadastrar';
       }
     });
   </script>

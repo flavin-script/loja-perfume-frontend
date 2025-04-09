@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Login | Perfume Deluxe</title>
-  <!-- Corrigido para apontar para a pasta frontend -->
   <link rel="stylesheet" href="/frontend/css/style.css">
   <style>
     body {
@@ -80,34 +79,41 @@
     <p id="mensagemLogin"></p>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
   <script>
+    // Configuração do Supabase
+    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';  // Substitua com sua URL do Supabase
+    const supabaseKey = 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';  // Substitua com sua chave de API
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
     document.getElementById('formLogin').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const email = document.getElementById('email').value;
       const senha = document.getElementById('senha').value;
+      const mensagem = document.getElementById('mensagemLogin');
 
       try {
-        const resposta = await fetch('https://loja-perfume-backend.onrender.com/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, senha }),
+        // Realiza o login com o Supabase
+        const { session, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: senha,
         });
 
-        const dados = await resposta.json();
-        document.getElementById('mensagemLogin').textContent = dados.mensagem;
-        document.getElementById('mensagemLogin').style.color = resposta.ok ? 'green' : 'red';
-
-        if (resposta.ok) {
+        if (error) {
+          mensagem.textContent = error.message;
+          mensagem.style.color = 'red';
+        } else {
+          mensagem.textContent = 'Login bem-sucedido!';
+          mensagem.style.color = 'green';
           setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'index.html';  // Redireciona para a página inicial após login
           }, 1500);
         }
-
       } catch (erro) {
         console.error('Erro no login:', erro);
-        document.getElementById('mensagemLogin').textContent = 'Erro ao fazer login. Tente novamente.';
-        document.getElementById('mensagemLogin').style.color = 'red';
+        mensagem.textContent = 'Erro ao fazer login. Tente novamente.';
+        mensagem.style.color = 'red';
       }
     });
   </script>
