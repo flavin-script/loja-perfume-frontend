@@ -116,7 +116,7 @@
         if (data.session) {
           // Se o login for bem-sucedido, armazena o estado de login e redireciona
           sessionStorage.setItem("userLoggedIn", true);
-          window.location.href = "index.html";
+          window.location.href = "index.html";  // Redireciona para a página principal após login
         } else {
           alert(data.mensagem || "Erro desconhecido.");
         }
