@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastro | Perfume Deluxe</title>
-  <link rel="stylesheet" href="/frontend/css/style.css">
+  <title>Cadastro | Perfume Luxe</title>
+  <link rel="stylesheet" href="css/style.css">
   <style>
+    /* Seus estilos permanecem inalterados */
     body {
       margin: 0;
       padding: 0;
@@ -72,79 +73,38 @@
 <body>
   <div class="form-container">
     <h2>Crie sua conta</h2>
-    <form id="formCadastro">
-      <input type="text" id="nome" placeholder="Nome completo" required />
-      <input type="email" id="email" placeholder="E-mail" required />
-      <input type="password" id="senha" placeholder="Senha" required />
-      <input type="password" id="confirmarSenha" placeholder="Confirmar senha" required />
-      <button type="submit" id="botaoCadastro">Cadastrar</button>
+    <form id="cadastro-form">
+      <input type="text" id="nome" placeholder="Digite seu nome" required>
+      <input type="email" id="email" placeholder="Digite seu email" required>
+      <input type="password" id="senha" placeholder="Digite sua senha" required>
+      <button type="submit">Cadastrar</button>
     </form>
-    <p id="mensagemCadastro"></p>
+    <p id="mensagemCadastro">Já tem uma conta? <a href="login.html">Entre aqui</a></p>
   </div>
 
-  <!-- Carregando o script do Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.18.0/dist/umd/supabase.min.js"></script>
-
   <script>
-    // Inicializando o Supabase corretamente após o carregamento do script
-    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua com sua chave real
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-    // Lógica de cadastro
-    document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+    const cadastroForm = document.getElementById("cadastro-form");
+    cadastroForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
-      const confirmarSenha = document.getElementById('confirmarSenha').value;
-      const botao = document.getElementById('botaoCadastro');
-      const mensagem = document.getElementById('mensagemCadastro');
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
 
-      // Verificando se as senhas coincidem
-      if (senha !== confirmarSenha) {
-        mensagem.textContent = 'As senhas não coincidem.';
-        mensagem.style.color = 'red';
+      // Validação
+      if (!nome || !email || !senha) {
+        alert("Por favor, preencha todos os campos.");
         return;
       }
 
-      botao.disabled = true;
-      botao.textContent = 'Cadastrando...';
-      mensagem.textContent = '';
-
       try {
-        const { error } = await supabase.auth.signUp({
-          email: email,
-          password: senha,
-        });
-
-        if (error) {
-          mensagem.textContent = error.message;
-          mensagem.style.color = 'red';
-        } else {
-          const { error: insertError } = await supabase
-            .from('usuarios')
-            .insert([{ nome: nome, email: email }]);
-
-          if (insertError) {
-            mensagem.textContent = 'Erro ao salvar os dados. Tente novamente.';
-            mensagem.style.color = 'red';
-          } else {
-            mensagem.textContent = 'Usuário cadastrado com sucesso!';
-            mensagem.style.color = 'green';
-            setTimeout(() => {
-              window.location.href = 'login.html'; // Redireciona para login após 1.5 segundos
-            }, 1500);
-          }
-        }
-      } catch (erro) {
-        console.error('Erro no cadastro:', erro);
-        mensagem.textContent = 'Erro ao cadastrar. Tente novamente.';
-        mensagem.style.color = 'red';
-      } finally {
-        botao.disabled = false;
-        botao.textContent = 'Cadastrar';
+        // Aqui você vai integrar com o Supabase para cadastro real.
+        // Simulando cadastro bem-sucedido:
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "login.html";
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao cadastrar.");
       }
     });
   </script>

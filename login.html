@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Login | Perfume Deluxe</title>
-  <link rel="stylesheet" href="/frontend/css/style.css">
+  <title>Login | Perfume Luxe</title>
+  <link rel="stylesheet" href="css/style.css">
   <style>
     /* Seus estilos permanecem inalterados */
     body {
@@ -73,55 +73,38 @@
 <body>
   <div class="form-container">
     <h2>Entrar na sua conta</h2>
-    <form id="formLogin">
-      <input type="email" id="email" placeholder="E-mail" required />
-      <input type="password" id="senha" placeholder="Senha" required />
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Digite seu email" required>
+      <input type="password" id="senha" placeholder="Digite sua senha" required>
       <button type="submit">Entrar</button>
     </form>
-    <p id="mensagemLogin"></p>
+    <p id="mensagemLogin">Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
   </div>
 
-  <!-- Carregando a biblioteca do Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.16.0/dist/umd/supabase.min.js"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Inicializando o cliente Supabase após carregar a biblioteca
-    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
-
-    // Criando o cliente Supabase
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-    // Lógica de login
-    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+  <script>
+    const loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
-      const mensagem = document.getElementById('mensagemLogin');
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      // Validação
+      if (!email || !senha) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
 
       try {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email,
-          password: senha,
-        });
-
-        if (error) {
-          mensagem.textContent = error.message;
-          mensagem.style.color = 'red';
-        } else {
-          mensagem.textContent = 'Login bem-sucedido!';
-          mensagem.style.color = 'green';
-          setTimeout(() => {
-            window.location.href = 'index.html';  // Redireciona após login bem-sucedido
-          }, 1500);
-        }
-      } catch (erro) {
-        console.error('Erro no login:', erro);
-        mensagem.textContent = 'Erro ao fazer login. Tente novamente.';
-        mensagem.style.color = 'red';
+        // Aqui você vai integrar com o Supabase para autenticação real.
+        // Simulando login bem-sucedido:
+        sessionStorage.setItem("userLoggedIn", true);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao fazer login.");
       }
     });
-  });
-</script>
+  </script>
+</body>
+</html>
