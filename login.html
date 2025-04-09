@@ -85,12 +85,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.16.0/dist/umd/supabase.min.js"></script>
   
   <script>
-    window.onload = function() {
-      // Definindo a criação do cliente Supabase aqui
+    // Certificando-se de que o script do Supabase foi carregado antes de usá-lo
+    document.addEventListener('DOMContentLoaded', function () {
       const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
-      
-      // Criação do cliente supabase
+
+      // Inicializando o cliente Supabase
       const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
       // Lógica de login
@@ -123,7 +123,7 @@
           mensagem.style.color = 'red';
         }
       });
-    };
+    });
   </script>
 </body>
 </html>
