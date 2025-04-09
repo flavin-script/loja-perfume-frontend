@@ -145,9 +145,11 @@
         if (data.user) {
           mensagemCadastro.classList.add('success');
           mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
-          
-          // Forçar o redirecionamento imediatamente após a mensagem de sucesso
-          window.location.href = "index.html";  // Garantir o redirecionamento
+
+          // Forçar o redirecionamento após 2 segundos para garantir que o usuário veja a mensagem
+          setTimeout(() => {
+            window.location.assign("index.html");
+          }, 2000); // Redirecionamento após 2 segundos
         } else {
           mensagemCadastro.classList.add('error');
           mensagemCadastro.textContent = data.mensagem || "Erro desconhecido.";
