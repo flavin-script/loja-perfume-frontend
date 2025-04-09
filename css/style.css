@@ -14,10 +14,8 @@ body {
 }
 
 .roxo {
-    
-    color: #c084fc;
-  }
-  
+  color: #c084fc;
+}
 
 header {
   background-color: #111;
@@ -82,39 +80,43 @@ header {
   margin-bottom: 20px;
 }
 
-/* ==================== CARROSSEL ==================== */
+/* Adicionando cor verde pro SUCESS */
+#mensagemCadastro.success {
+  color: green; /* Cor verde para sucesso */
+}
 
+/* ==================== CARROSSEL ==================== */
 .carousel {
-    margin: 40px auto;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    max-width: 920px; /* 4 imagens de 220px + 3 gaps de 20px */
-  }
-  
-  .carousel h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-  
-  .carousel-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .carousel-track {
-    display: flex;
-    gap: 20px;
-    animation: scrollCarousel 20s linear infinite;
-    width: fit-content;
-  }
-  
-  .carousel-track img {
-    width: 220px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }  
+  margin: 40px auto;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  max-width: 920px; /* 4 imagens de 220px + 3 gaps de 20px */
+}
+
+.carousel h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  animation: scrollCarousel 20s linear infinite;
+  width: fit-content;
+}
+
+.carousel-track img {
+  width: 220px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
 
 /* Duplicação de imagens para loop infinito perfeito */
 .carousel-track img:nth-child(n+7) {
@@ -123,16 +125,15 @@ header {
 
 /* Animação contínua */
 @keyframes scrollCarousel {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
 /* ==================== PRODUTOS ==================== */
-
 .produtos {
   padding: 40px 20px;
 }
@@ -186,4 +187,108 @@ header {
   margin-left: 5px;
 }
 
+/* ==================== RESPONSIVO ==================== */
 
+/* Para dispositivos menores que 768px (como tablets e smartphones) */
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu a {
+    font-size: 14px;
+  }
+
+  .user-actions {
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .carrinho-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .carousel-track img {
+    width: 180px; /* Ajusta o tamanho das imagens do carrossel */
+  }
+
+  .produtos-grid {
+    gap: 20px;
+  }
+
+  .produto {
+    width: 180px; /* Ajusta o tamanho dos produtos */
+    padding: 12px;
+  }
+
+  .produto h3 {
+    font-size: 16px;
+  }
+
+  .preco {
+    font-size: 14px;
+  }
+}
+
+/* Para dispositivos menores que 480px (como celulares) */
+@media (max-width: 480px) {
+  header {
+    padding: 10px 15px;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .menu a {
+    font-size: 12px;
+  }
+
+  .user-actions {
+    gap: 8px;
+    flex-direction: column;
+  }
+
+  .carrinho-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .carousel-track img {
+    width: 160px; /* Ajusta o tamanho das imagens do carrossel */
+  }
+
+  .produtos-grid {
+    gap: 15px;
+  }
+
+  .produto {
+    width: 160px; /* Ajusta o tamanho dos produtos */
+    padding: 10px;
+  }
+
+  .produto h3 {
+    font-size: 14px;
+  }
+
+  .preco {
+    font-size: 12px;
+  }
+}
