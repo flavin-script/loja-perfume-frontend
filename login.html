@@ -112,6 +112,7 @@
         }
 
         const data = await response.json();
+        console.log(data); // Verifique a resposta do backend no console
 
         if (data.session) {
           // Se o login for bem-sucedido, armazena o estado de login e redireciona
@@ -119,7 +120,7 @@
 
           // Atraso de 500ms para garantir que a sessão foi armazenada
           setTimeout(() => {
-            window.location.replace("index.html"); // Redireciona para a página principal após login
+            window.location.href = "index.html"; // Redireciona para a página principal após login
           }, 500);
         } else {
           alert(data.mensagem || "Erro desconhecido.");
