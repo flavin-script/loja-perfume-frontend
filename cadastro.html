@@ -127,7 +127,7 @@
             nome: nome,
             email: email,
             senha: senha,
-            confirmarSenha: confirmarSenha,  // Adicionando o campo confirmarSenha
+            confirmarSenha: confirmarSenha,
           }),
         });
 
@@ -146,16 +146,14 @@
           mensagemCadastro.classList.add('success');
           mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
           
-          // Redireciona após 2 segundos
-          setTimeout(() => {
-            window.location.replace("index.html");
-          }, 2000); // Redirecionamento após 2 segundos
+          // Forçar o redirecionamento imediatamente após a mensagem de sucesso
+          window.location.href = "index.html";  // Garantir o redirecionamento
         } else {
           mensagemCadastro.classList.add('error');
           mensagemCadastro.textContent = data.mensagem || "Erro desconhecido.";
         }
       } catch (error) {
-        console.error(error);
+        console.error("Erro ao cadastrar:", error);
       }
     });
   </script>
