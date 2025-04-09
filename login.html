@@ -85,12 +85,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.16.0/dist/umd/supabase.min.js"></script>
   
   <script>
-    // Inicializando o Supabase dentro do script, após carregamento da biblioteca
     window.onload = function() {
+      // Aqui inicializamos o Supabase após o carregamento do script
       const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
-      
-      // Criação do cliente Supabase após carregamento do script
       const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
       // Lógica de login
