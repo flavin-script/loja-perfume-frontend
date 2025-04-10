@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Perfume Luxe</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
@@ -52,7 +52,11 @@
       text-align: center;
     }
 
-    /* 🌟 NOVO CARROSSEL AQUI */
+    .hero h2 {
+      font-size: 28px;
+      color: #6a0dad;
+    }
+
     .carousel {
       margin: 40px auto;
       max-width: 920px;
@@ -75,19 +79,15 @@
     }
 
     @keyframes scrollCarousel {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .produtos {
       display: flex;
       justify-content: center;
       gap: 30px;
-      margin-top: 40px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
@@ -96,6 +96,43 @@
       border: 1px solid #ccc;
       border-radius: 10px;
       padding: 15px;
+      position: relative;
+      cursor: pointer;
+      background-color: #fafafa;
+      transition: box-shadow 0.3s;
+    }
+
+    .produto:hover {
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .ver-mais {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 0, 0, 0.904);
+      color: white;
+      padding: 3px 10px;
+      font-size: 12px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .produto:hover .ver-mais {
+      opacity: 1;
+    }
+
+    .produto p {
+      margin: 10px 0 5px;
+    }
+
+    .produto .preco {
+      color: #6a0dad;
+      font-weight: bold;
+      font-size: 15px;
     }
 
     footer {
@@ -104,6 +141,99 @@
       background-color: #111;
       color: white;
       margin-top: 50px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      max-width: 400px;
+      width: 95%;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      z-index: 9999;
+      animation: fadeInPopup 0.3s ease-in-out;
+    }
+
+    .popup img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .popup h4 {
+      font-size: 22px;
+      color: #222;
+    }
+
+    .popup .descricao {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .popup .estoque {
+      color: green;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .popup .avaliacao {
+      margin-bottom: 10px;
+    }
+
+    .popup .avaliacao span {
+      color: gold;
+      font-size: 18px;
+    }
+
+    .popup .comentarios {
+      text-align: left;
+      margin-top: 15px;
+    }
+
+    .popup .comentarios h5 {
+      margin-bottom: 5px;
+    }
+
+    .popup .comentarios p {
+      font-size: 13px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    .popup .comprar-btn, .popup .fechar-btn {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .popup .comprar-btn {
+      background: #6a0dad;
+      color: white;
+      border: none;
+    }
+
+    .popup .fechar-btn {
+      background: transparent;
+      color: #e11d48;
+      border: 1px solid #e11d48;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 9998;
     }
   </style>
 </head>
@@ -131,16 +261,8 @@
       <h2>Fragrância, Qualidade e Felicidade!</h2>
       <h3>Ofertas Especiais</h3>
 
-      <!-- 🌟 NOVO CARROSSEL -->
       <div class="carousel">
         <div class="carousel-track">
-          <img src="img/perfume1.jpg" alt="Perfume 1">
-          <img src="img/perfume2.jpg" alt="Perfume 2">
-          <img src="img/perfume3.jpg" alt="Perfume 3">
-          <img src="img/perfume4.jpg" alt="Perfume 4">
-          <img src="img/perfume5.jpg" alt="Perfume 5">
-          <img src="img/perfume6.jpg" alt="Perfume 6">
-          <!-- Duplicadas para efeito de rolagem infinita -->
           <img src="img/perfume1.jpg" alt="Perfume 1">
           <img src="img/perfume2.jpg" alt="Perfume 2">
           <img src="img/perfume3.jpg" alt="Perfume 3">
@@ -152,20 +274,25 @@
 
       <h3>Confira:</h3>
       <div class="produtos">
-        <div class="produto">
-          <img src="img/perfume1.jpg" alt="Perfume Clássico">
-          <h4>Perfume Clássico</h4>
-          <p><del>R$ 199,00</del> <strong>R$ 149,00</strong></p>
+        <div class="produto" onclick="mostrarPopup('img/perfume1.jpg', 'Perfume Elegance', 'Notas amadeiradas e envolventes para ocasiões especiais.', 'R$ 159,90')">
+          <img src="img/perfume1.jpg" alt="Perfume 1">
+          <p><strong>Perfume Elegance</strong></p>
+          <p class="preco">R$ 159,90</p>
+          <span class="ver-mais">Ver mais</span>
         </div>
-        <div class="produto">
-          <img src="img/perfume2.jpg" alt="Perfume Elegance">
-          <h4>Perfume Elegance</h4>
-          <p><del>R$ 250,00</del> <strong>R$ 199,00</strong></p>
+
+        <div class="produto" onclick="mostrarPopup('img/perfume2.jpg', 'Perfume Summer', 'Fresco, cítrico e perfeito para os dias quentes.', 'R$ 129,90')">
+          <img src="img/perfume2.jpg" alt="Perfume 2">
+          <p><strong>Perfume Summer</strong></p>
+          <p class="preco">R$ 129,90</p>
+          <span class="ver-mais">Ver mais</span>
         </div>
-        <div class="produto">
-          <img src="img/perfume3.jpg" alt="Perfume Noite">
-          <h4>Perfume Noite</h4>
-          <p><del>R$ 220,00</del> <strong>R$ 180,00</strong></p>
+
+        <div class="produto" onclick="mostrarPopup('img/perfume3.jpg', 'Perfume Noite', 'Intenso e marcante, ideal para a noite.', 'R$ 179,90')">
+          <img src="img/perfume3.jpg" alt="Perfume 3">
+          <p><strong>Perfume Noite</strong></p>
+          <p class="preco">R$ 179,90</p>
+          <span class="ver-mais">Ver mais</span>
         </div>
       </div>
     </section>
@@ -176,20 +303,56 @@
   </footer>
 
   <script>
-    // Script para esconder/mostrar links de login/cadastro conforme o estado de login
     const loginLink = document.getElementById('login-link');
     const cadastroLink = document.getElementById('cadastro-link');
-
-    // Supondo que o login seja armazenado em sessionStorage após login bem-sucedido
     const userLoggedIn = sessionStorage.getItem('userLoggedIn');
-
     if (userLoggedIn) {
       loginLink.style.display = 'none';
       cadastroLink.style.display = 'none';
-    } else {
-      loginLink.style.display = 'block';
-      cadastroLink.style.display = 'block';
+    }
+  
+    function mostrarPopup(imagem, titulo, descricao, preco) {
+      fecharPopup();
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay';
+      overlay.onclick = fecharPopup;
+      document.body.appendChild(overlay);
+  
+      const popup = document.createElement('div');
+      popup.className = 'popup';
+  
+      popup.innerHTML = `
+        <img src="${imagem}" alt="${titulo}">
+        <h4>${titulo}</h4>
+        <p class="descricao">${descricao}<br><br>
+          Uma fragrância sofisticada que desperta os sentidos com notas envolventes. Ideal para quem deseja marcar presença com elegância. Sua composição luxuosa exala confiança e exclusividade.
+        </p>
+        <p class="estoque">Disponível em estoque</p>
+        <div class="avaliacao">
+          <span>★ ★ ★ ★ ☆</span>
+          <span style="font-size:13px; color:#555;">(421 avaliações)</span>
+        </div>
+        <div class="comentarios">
+          <h5>Comentários:</h5>
+          <p><strong>Camila:</strong> Amei demais esse perfume, dura o dia todo!</p>
+          <p><strong>João:</strong> Aroma marcante e sofisticado, muito elogiado.</p>
+          <p><strong>Larissa:</strong> Já comprei duas vezes, é o meu favorito!</p>
+        </div>
+        <button class="comprar-btn">Comprar agora por ${preco}</button>
+        <button class="fechar-btn" onclick="fecharPopup()">Fechar</button>
+      `;
+      document.body.appendChild(popup);
+      document.body.style.overflow = 'hidden';
+    }
+  
+    function fecharPopup() {
+      const popup = document.querySelector('.popup');
+      const overlay = document.querySelector('.overlay');
+      if (popup) popup.remove();
+      if (overlay) overlay.remove();
+      document.body.style.overflow = 'auto';
     }
   </script>
-</body>
-</html>
+  
+  </body>
+  </html>
