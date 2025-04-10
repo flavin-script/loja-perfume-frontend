@@ -132,11 +132,12 @@
 
   // Marcar usuário como logado
   localStorage.setItem("usuarioLogado", "true");
+  sessionStorage.setItem('userLoggedIn', true);
 
   // Redirecionamento direto após 2 segundos
   setTimeout(() => {
     window.location.href = "index.html";
-  }, 2000);
+  }, 800);
 }
 
         // Log da resposta para ajudar na depuração
