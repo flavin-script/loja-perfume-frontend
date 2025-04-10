@@ -135,21 +135,19 @@
           throw new Error(data.mensagem || "Erro ao cadastrar.");
         }
 
-        if (data.user) {
-          mensagemCadastro.classList.add('success');
-          mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
+        if (response.ok) {
+  mensagemCadastro.classList.add('success');
+  mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
 
-          // Log para verificar se o código chegou aqui
-          console.log("Redirecionando após cadastro bem-sucedido.");
+  console.log("Redirecionando após cadastro bem-sucedido.");
 
-          // Redirecionamento direto após 2 segundos
-          setTimeout(() => {
-            window.location.href = "index.html";  // Tente usar href ao invés de assign
-          }, 2000);
-        } else {
-          mensagemCadastro.classList.add('error');
-          mensagemCadastro.textContent = data.mensagem || "Erro desconhecido.";
-        }
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 2000);
+} else {
+  mensagemCadastro.classList.add('error');
+  mensagemCadastro.textContent = data.mensagem || "Erro desconhecido.";
+}
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
       }
