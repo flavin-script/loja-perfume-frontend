@@ -173,35 +173,8 @@ header {
   }
 }
 
-/* Modal básico */
-.modal {
-  display: none; /* Inicialmente escondido */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Aumenta a opacidade para o fundo */
-  z-index: 999;
-  overflow-y: auto; /* Garante que o modal tenha seu próprio scroll */
-  transition: opacity 0.3s ease; /* Transição suave para o modal */
-}
-
-.modal-content {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 20px;
-  width: 80%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow-y: auto;
-  border-radius: 10px; /* Bordas arredondadas para um visual mais suave */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para o modal */
-  transition: transform 0.3s ease-in-out; /* Transição suave para o modal */
-}
-
 /* Responsividade para dispositivos móveis */
-@media (max-width: 390px) {
+@media (max-width: 768px) {
   header {
     display: flex;
     justify-content: space-between;
