@@ -126,6 +126,19 @@
 
         const data = await response.json();
 
+        if (data.user) {
+  mensagemCadastro.classList.add('success');
+  mensagemCadastro.textContent = "Cadastro realizado com sucesso!";
+
+  // Marcar usuário como logado
+  localStorage.setItem("usuarioLogado", "true");
+
+  // Redirecionamento direto após 2 segundos
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 2000);
+}
+
         // Log da resposta para ajudar na depuração
         console.log("Resposta do backend:", data);
 
