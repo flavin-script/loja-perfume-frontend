@@ -202,28 +202,16 @@ header {
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  .navbar .logo {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .navbar .menu {
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .navbar .auth-buttons {
-    justify-content: center;
-    width: 100%;
-    margin-top: 15px;
+    .produtos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
   }
 }
 
