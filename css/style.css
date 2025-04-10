@@ -267,61 +267,6 @@ header {
     align-items: center;
   }
 
-  .user-actions {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    width: 100%;
-    justify-content: center;
-    margin-top: 10px;
-  }
-
-  .menu {
-    display: flex;
-    flex-direction: row;
-    justify-content: center; /* Centraliza os itens horizontalmente */
-    gap: 15px;
-    width: 100%;
-    margin-top: 10px;
-    flex-wrap: wrap; /* Para não quebrar feio se não couber */
-  }
-
-  .hero h1 {
-    font-size: 28px;
-    text-align: center;
-  }
-
-  .carousel-track img {
-    width: 160px;
-  }
-
-  .produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas no celular */
-    gap: 15px;
-    padding: 0 10px;
-  }
-
-  .produto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .imagem-produto {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-}
-
-@media (max-width: 768px) {
-  header {
-    padding: 15px 20px;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .logo {
     margin-bottom: 10px;
     text-align: center;
@@ -385,6 +330,77 @@ header {
   footer {
     padding: 20px 10px;
     text-align: center;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  header {
+    padding: 10px 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .user-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .menu {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .menu a {
+    font-size: 15px;
+    padding: 4px 8px;
+  }
+
+  .hero h1 {
+    font-size: 20px;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .carousel-track img {
+    width: 140px;
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .produto {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imagem-produto {
+    height: 130px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  footer {
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 14px;
   }
 }
 
