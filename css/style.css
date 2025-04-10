@@ -115,6 +115,7 @@ header {
 #mensagemLogin {
   color: #000;
 }
+
 #mensagemLogin a {
   color: #000; /* cor do link */
   text-decoration: underline; /* sublinha o link */
@@ -123,6 +124,7 @@ header {
 #mensagemCadastro {
   color: #000;
 }
+
 #mensagemCadastro a {
   color: #000000; /* cor do link */
   text-decoration: underline; /* sublinha o link */
@@ -168,6 +170,36 @@ header {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* Modal básico */
+.modal {
+  display: none; /* Inicialmente escondido */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  overflow-y: auto; /* Garante que o modal tenha seu próprio scroll */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px; /* Limita o tamanho máximo no desktop */
+  max-height: 80vh; /* Limita a altura para não sair da tela */
+  overflow-y: auto; /* Permite rolar dentro do modal */
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-height: 80vh; /* Ajuste para dispositivos móveis */
   }
 }
 
