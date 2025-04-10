@@ -270,13 +270,9 @@ header {
   .menu {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-    width: 100%;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    gap: 10px; /* Espaçamento entre os itens */
   }
-
-
 
   .user-actions {
     flex-direction: row;
@@ -294,11 +290,10 @@ header {
   }
 
   .produto {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de largura igual */
+      gap: 10px; /* Espaçamento entre os produtos */
+    }
 
   .imagem-produto {
     height: 150px;
