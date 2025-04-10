@@ -201,19 +201,19 @@ header {
 }
 
 /* Responsividade para dispositivos móveis */
-@media (max-width: 768px) {
+@media (max-width: 390px) {
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+  }
     .produtos-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
     }
+  
   }
-}
 
 /* ===== PRODUTOS ===== */
 .produtos {
