@@ -352,7 +352,21 @@
       if (overlay) overlay.remove();
       document.body.style.overflow = 'auto';
     }
-  </script>
+    
+     // Esconde os botões "Entrar" e "Cadastrar" se o usuário estiver logado
+  window.addEventListener('DOMContentLoaded', () => {
+    const estaLogado = localStorage.getItem("usuarioLogado") === "true";
+    
+    if (estaLogado) {
+      const entrar = document.getElementById("btn-entrar");
+      const cadastrar = document.getElementById("btn-cadastrar");
+
+      if (entrar) entrar.style.display = "none";
+      if (cadastrar) cadastrar.style.display = "none";
+    }
+  });
+</script>
+
   
   </body>
   </html>
