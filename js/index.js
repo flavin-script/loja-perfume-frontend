@@ -1,3 +1,30 @@
+// Função que verifica se o usuário está logado
+function usuarioEstaLogado() {
+  return localStorage.getItem("usuarioLogado") === "true";
+}
+
+// NOVAS FUNÇÕES PARA BLOQUEAR USUÁRIO DESLOGADO:
+function handleAdicionarAoCarrinho(imagem, titulo, descricao, preco) {
+  if (!usuarioEstaLogado()) {
+    alert("Você precisa estar logado para adicionar ao carrinho.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const produto = { imagem, titulo, descricao, preco };
+  adicionarAoCarrinho(produto);
+}
+
+function handleComprarAgora(imagem, titulo, descricao, preco) {
+  if (!usuarioEstaLogado()) {
+    alert("Você precisa estar logado para finalizar a compra.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  comprarAgora(imagem, titulo, descricao, preco);
+}
+
 // Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
 const loginLink = document.getElementById('login-link');
 const cadastroLink = document.getElementById('cadastro-link');
@@ -35,9 +62,9 @@ function mostrarPopup(imagem, titulo, descricao, preco) {
       <p><strong>João:</strong> Aroma marcante e sofisticado, muito elogiado.</p>
       <p><strong>Larissa:</strong> Já comprei duas vezes, é o meu favorito!</p>
     </div>
-    <button class="comprar-btn" onclick="comprarAgora('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Comprar agora por ${preco}</button>
+    <button class="comprar-btn" onclick="handleComprarAgora('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Comprar agora por ${preco}</button>
+<button id="adicionarAoCarrinhoBtn" class="btn-carrinho" onclick="handleAdicionarAoCarrinho('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Adicionar ao Carrinho</button>
     <button class="fechar-btn" onclick="fecharPopup()">Fechar</button>
-    <button id="adicionarAoCarrinhoBtn" class="btn-carrinho" onclick="adicionarAoCarrinho({imagem: '${imagem}', titulo: '${titulo}', descricao: \`${descricao}\`, preco: '${preco}'})">Adicionar ao Carrinho</button>
   `;
   document.body.appendChild(popup);
   document.body.style.overflow = 'hidden';
