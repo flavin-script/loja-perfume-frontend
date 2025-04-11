@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seu Carrinho | Perfume Luxe</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header .logo {
+      font-size: 28px;
+      color: #8a4fff;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    main {
+      padding: 30px 20px;
+    }
+
+    .carrinho-container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+
+    .produto-carrinho {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+    }
+
+    .produto-carrinho img {
+      width: 120px;
+      border-radius: 6px;
+    }
+
+    .info-produto {
+      flex: 1;
+    }
+
+    .info-produto h4 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .info-produto p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .preco {
+      font-weight: bold;
+      font-size: 16px;
+      color: #000;
+    }
+
+    .remover {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #ff4d4d;
+      cursor: pointer;
+    }
+
+    .form-endereco, .form-pagamento {
+      margin-top: 30px;
+    }
+
+    .form-endereco h3, .form-pagamento h3 {
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .form-endereco input, .form-pagamento select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .resumo {
+      margin-top: 30px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .finalizar-btn {
+      background-color: #8a4fff;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .finalizar-btn:hover {
+      background-color: #692dd5;
+    }
+
+    .vazio {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">Perfume Luxe</a>
+  </header>
+
+  <main>
+    <section class="carrinho-container">
+      <h2>Seu Carrinho</h2>
+      <div id="carrinho-itens"></div>
+
+      <div class="form-endereco">
+        <h3>Endereço de Entrega</h3>
+        <input type="text" placeholder="Nome completo" required>
+        <input type="text" placeholder="Rua, número e complemento" required>
+        <input type="text" placeholder="Cidade" required>
+        <input type="text" placeholder="Estado" required>
+        <input type="text" placeholder="CEP" required>
+      </div>
+
+      <div class="form-pagamento">
+        <h3>Método de Pagamento</h3>
+        <select required>
+          <option value="">Selecione uma opção</option>
+          <option value="cartao">Cartão de Crédito</option>
+          <option value="pix">PIX</option>
+          <option value="boleto">Boleto Bancário</option>
+        </select>
+      </div>
+
+      <div class="resumo">
+        <div class="total" id="valor-total">Total: R$ 0,00</div>
+        <button class="finalizar-btn" onclick="finalizarCompra()">Finalizar Compra</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Perfume Luxe. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const carrinhoContainer = document.getElementById("carrinho-itens");
+      const totalDisplay = document.getElementById("valor-total");
+
+      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      const produtoSelecionado = JSON.parse(localStorage.getItem("produtoSelecionado"));
+      if (produtoSelecionado) {
+        carrinho = [produtoSelecionado];
+        localStorage.removeItem("produtoSelecionado");
+      }
+
+      if (carrinho.length === 0) {
+        carrinhoContainer.innerHTML = "<p class='vazio'>Seu carrinho está vazio.</p>";
+        totalDisplay.textContent = "Total: R$ 0,00";
+        return;
+      }
+
+      let total = 0;
+
+      carrinho.forEach((produto, index) => {
+        const item = document.createElement("div");
+        item.className = "produto-carrinho";
+
+        const precoNumerico = parseFloat(produto.preco.replace("R$", "").replace(",", "."));
+        const quantidade = produto.quantidade || 1;
+        const subtotal = precoNumerico * quantidade;
+        total += subtotal;
+
+        item.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.titulo}">
+          <div class="info-produto">
+            <h4>${produto.titulo}</h4>
+            <p>${produto.descricao}</p>
+            <p class="preco">Preço: ${produto.preco}</p>
+            <p>Quantidade: ${quantidade}</p>
+          </div>
+          <button class="remover" onclick="removerProduto(${index})">🗑️</button>
+        `;
+
+        carrinhoContainer.appendChild(item);
+      });
+
+      totalDisplay.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
+    });
+
+    function removerProduto(index) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      carrinho.splice(index, 1);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      location.reload();
+    }
+
+    function finalizarCompra() {
+      localStorage.removeItem("carrinho");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

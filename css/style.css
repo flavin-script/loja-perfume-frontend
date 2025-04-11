@@ -175,18 +175,28 @@ header {
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .popup {
+    max-height: 90vh; /* limita a altura da popup */
+    overflow-y: auto; /* ativa scroll vertical */
+    padding: 20px;
   }
-    .produtos-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-  
+
+  .popup .comprar-btn,
+  .popup .fechar-btn {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
   }
+
+  .popup img {
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .popup .comentarios {
+    font-size: 12px;
+  }
+}
 
 /* ===== PRODUTOS ===== */
 .produtos {
@@ -298,6 +308,22 @@ header {
 
 .comprar-btn:hover {
   background-color: #00c853;
+}
+
+.btn-carrinho { 
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+.btn-carrinho:hover { 
+  background-color: #219653;
 }
 
 /* ===== VER MAIS ===== */

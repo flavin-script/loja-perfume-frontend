@@ -23,7 +23,7 @@
       <div class="login-cadastro">
         <a href="login.html" class="roxo" id="login-link">Entrar</a>
         <a href="cadastro.html" class="roxo" id="cadastro-link">Cadastrar</a>
-        <button class="carrinho-btn roxo">🛒 Carrinho</button>
+        <button class="carrinho-btn roxo" onclick="window.location.href='carrinho.html'">🛒 Carrinho</button>
       </div>
     </div>
   </header>
@@ -90,17 +90,17 @@
       loginLink.style.display = 'none';
       cadastroLink.style.display = 'none';
     }
-  
+
     function mostrarPopup(imagem, titulo, descricao, preco) {
       fecharPopup();
       const overlay = document.createElement('div');
       overlay.className = 'overlay';
       overlay.onclick = fecharPopup;
       document.body.appendChild(overlay);
-  
+
       const popup = document.createElement('div');
       popup.className = 'popup';
-  
+
       popup.innerHTML = `
         <img src="${imagem}" alt="${titulo}">
         <h4>${titulo}</h4>
@@ -118,13 +118,14 @@
           <p><strong>João:</strong> Aroma marcante e sofisticado, muito elogiado.</p>
           <p><strong>Larissa:</strong> Já comprei duas vezes, é o meu favorito!</p>
         </div>
-        <button class="comprar-btn">Comprar agora por ${preco}</button>
+        <button class="comprar-btn" onclick="comprarAgora('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Comprar agora por ${preco}</button>
         <button class="fechar-btn" onclick="fecharPopup()">Fechar</button>
+        <button id="adicionarAoCarrinhoBtn" class="btn-carrinho" onclick="adicionarAoCarrinho({imagem: '${imagem}', titulo: '${titulo}', descricao: \`${descricao}\`, preco: '${preco}'})">Adicionar ao Carrinho</button>
       `;
       document.body.appendChild(popup);
       document.body.style.overflow = 'hidden';
     }
-  
+
     function fecharPopup() {
       const popup = document.querySelector('.popup');
       const overlay = document.querySelector('.overlay');
@@ -132,21 +133,41 @@
       if (overlay) overlay.remove();
       document.body.style.overflow = 'auto';
     }
-    
-     // Esconde os botões "Entrar" e "Cadastrar" se o usuário estiver logado
-  window.addEventListener('DOMContentLoaded', () => {
-    const estaLogado = localStorage.getItem("usuarioLogado") === "true";
-    
-    if (estaLogado) {
-      const entrar = document.getElementById("btn-entrar");
-      const cadastrar = document.getElementById("btn-cadastrar");
 
-      if (entrar) entrar.style.display = "none";
-      if (cadastrar) cadastrar.style.display = "none";
+    window.addEventListener('DOMContentLoaded', () => {
+      const estaLogado = localStorage.getItem("usuarioLogado") === "true";
+      if (estaLogado) {
+        const entrar = document.getElementById("btn-entrar");
+        const cadastrar = document.getElementById("btn-cadastrar");
+        if (entrar) entrar.style.display = "none";
+        if (cadastrar) cadastrar.style.display = "none";
+      }
+    });
+
+    function adicionarAoCarrinho(produto) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      carrinho.push(produto);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+      const contador = document.getElementById("contador-carrinho");
+      if (contador) {
+        contador.textContent = carrinho.length;
+      }
+
+      alert("Produto adicionado ao carrinho!");
     }
-  });
-</script>
 
-  
-  </body>
-  </html>
+    function comprarAgora(imagem, titulo, descricao, preco) {
+      const produtoSelecionado = {
+        imagem: imagem,
+        titulo: titulo,
+        descricao: descricao,
+        preco: preco,
+        quantidade: 1
+      };
+      localStorage.setItem("produtoSelecionado", JSON.stringify(produtoSelecionado));
+      window.location.href = "carrinho.html";
+    }
+  </script>
+</body>
+</html>
