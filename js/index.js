@@ -1,6 +1,6 @@
 // Função que verifica se o usuário está logado
 function usuarioEstaLogado() {
-  return localStorage.getItem("userLoggedIn") === "true";
+  return sessionStorage.getItem("userLoggedIn") === "true";
 }
 
 // NOVAS FUNÇÕES PARA BLOQUEAR USUÁRIO DESLOGADO:
