@@ -116,3 +116,14 @@ function comprarAgora(imagem, titulo, descricao, preco) {
   localStorage.setItem("produtoSelecionado", JSON.stringify(produtoSelecionado));
   window.location.href = "carrinho.html";
 }
+
+// Requisição ao carregar o site
+fetch('https://loja-perfume-backend.onrender.com/registro-visita')
+  .then(response => response.json())
+  .then(data => console.log('Visita registrada:', data))
+  .catch(error => console.error('Erro ao registrar visita:', error));
+
+// Função de popup (exemplo, caso não tenha ainda)
+function mostrarPopup(imagem, titulo, descricao, preco) {
+  alert(`${titulo}\n${descricao}\n${preco}`);
+}

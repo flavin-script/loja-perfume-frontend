@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Admin | Perfume Luxe</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #111, #111);
+      color: #fff;
+    }
+
+    .top-bar {
+      background-color: #b65fcf;
+      padding: 20px;
+      display: flex;
+      justify-content:space-between;
+      align-items: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .top-bar h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .top-bar button {
+      background-color: #fff;
+      color: #b65fcf;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .top-bar button:hover {
+      background-color: #f0e2f9;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border: 1px solid #3d3d3d;
+      padding: 30px;
+      border-radius: 20px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(182, 95, 207, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(182, 95, 207, 0.5);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #b65fcf;
+    }
+
+    .card p {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .card a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <h2>Perfume Luxe | Painel Admin</h2>
+    <button onclick="logout()">Sair</button>
+  </div>
+
+  <div class="dashboard">
+    <div class="card">
+      <h3>Visitantes</h3>
+      <p id="visitantes">...</p>
+    </div>
+    <div class="card">
+      <h3>Cadastros</h3>
+      <p id="cadastros">...</p>
+    </div>
+    <div class="card">
+      <h3>Usuários</h3>
+      <p><a href="#">Ver lista</a></p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    // Supabase config
+    const supabaseUrl = 'https://rdmrjhgqztvggzdtapdw.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDA5NDA1MCwiZXhwIjoyMDU5NjcwMDUwfQ.xvHdvQ__gr7VIx81ZD4LWFsVr8WybRcd6gVHOCkDBoo';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Segurança
+    if (localStorage.getItem('admin_autenticado') !== 'true') {
+      window.location.href = 'admin-login.html';
+    }
+
+    async function carregarDados() {
+      try {
+        // Buscar visitantes (tabela: visitantes)
+        const { count: visitantesCount, error: visitantesErro } = await supabase
+          .from('visitantes')
+          .select('*', { count: 'exact', head: true });
+
+        if (visitantesErro) throw visitantesErro;
+        document.getElementById('visitantes').textContent = visitantesCount ?? 0;
+
+        // Buscar cadastros (tabela: usuarios)
+        const { count: cadastrosCount, error: cadastrosErro } = await supabase
+          .from('usuarios')
+          .select('*', { count: 'exact', head: true });
+
+        if (cadastrosErro) throw cadastrosErro;
+        document.getElementById('cadastros').textContent = cadastrosCount ?? 0;
+      } catch (err) {
+        console.error('Erro ao buscar dados do painel:', err.message);
+        document.getElementById('visitantes').textContent = 'Erro';
+        document.getElementById('cadastros').textContent = 'Erro';
+      }
+    }
+
+    carregarDados();
+
+    function logout() {
+      localStorage.removeItem('admin_autenticado');
+      window.location.href = 'admin-login.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Login Admin | Perfume Luxe</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #111, #111);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(200, 150, 255, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: #b65fcf;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #e0cfee;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      background-color: #faf9fc;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #b65fcf;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .form-container button:hover {
+      background-color: #9d4bb8;
+    }
+
+    #mensagemLogin {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Área Administrativa</h2>
+    <form id="admin-login-form">
+      <input type="password" id="senhaAdmin" placeholder="Digite a senha do admin" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="mensagemLogin">Acesso restrito ao administrador</p>
+  </div>
+
+  <script>
+    document.getElementById('admin-login-form').addEventListener('submit', function (e) {
+      e.preventDefault(); // impede o reload da página
+
+      const senha = document.getElementById('senhaAdmin').value;
+      const msg = document.getElementById('mensagemLogin');
+
+      if (senha === 'flavio1062587534') {
+        localStorage.setItem('admin_autenticado', 'true');
+        window.location.href = 'painel-admin.html';
+      } else {
+        msg.textContent = 'Senha incorreta.';
+        msg.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>
