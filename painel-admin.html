@@ -131,7 +131,7 @@
       try {
         // Buscar visitantes (tabela: visitantes)
         const { count: visitantesCount, error: visitantesErro } = await supabase
-          .from('visitantes')
+          .from('visitas')
           .select('*', { count: 'exact', head: true });
 
         if (visitantesErro) throw visitantesErro;
