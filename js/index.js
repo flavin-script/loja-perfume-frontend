@@ -1,6 +1,6 @@
 // Função que verifica se o usuário está logado
 function usuarioEstaLogado() {
-  return localStorage.getItem("usuarioLogado") === "true";
+  return localStorage.getItem("userLoggedIn") === "true";
 }
 
 // NOVAS FUNÇÕES PARA BLOQUEAR USUÁRIO DESLOGADO:
@@ -28,7 +28,7 @@ function handleComprarAgora(imagem, titulo, descricao, preco) {
 // Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
 const loginLink = document.getElementById('login-link');
 const cadastroLink = document.getElementById('cadastro-link');
-const userLoggedIn = sessionStorage.getItem('usuarioLogado');
+const userLoggedIn = sessionStorage.getItem('userLoggedIn');
 if (userLoggedIn) {
   loginLink.style.display = 'none';
   cadastroLink.style.display = 'none';
