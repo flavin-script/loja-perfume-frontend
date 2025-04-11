@@ -1,9 +1,7 @@
-// Função que verifica se o usuário está logado
 function usuarioEstaLogado() {
   return sessionStorage.getItem("userLoggedIn") === "true";
 }
 
-// NOVAS FUNÇÕES PARA BLOQUEAR USUÁRIO DESLOGADO:
 function handleAdicionarAoCarrinho(imagem, titulo, descricao, preco) {
   if (!usuarioEstaLogado()) {
     alert("Você precisa estar logado para adicionar ao carrinho.");
@@ -26,17 +24,20 @@ function handleComprarAgora(imagem, titulo, descricao, preco) {
 }
 
 // Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
-const loginLink = document.getElementById('login-link');
-const cadastroLink = document.getElementById('cadastro-link');
-const userLoggedIn = sessionStorage.getItem('userLoggedIn');
-if (userLoggedIn) {
-  loginLink.style.display = 'none';
-  cadastroLink.style.display = 'none';
-}
+window.addEventListener('DOMContentLoaded', () => {
+  const loginLink = document.getElementById('login-link');
+  const cadastroLink = document.getElementById('cadastro-link');
+  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
 
-// Mostra o popup com detalhes do produto
+  if (estaLogado) {
+    if (loginLink) loginLink.style.display = "none";
+    if (cadastroLink) cadastroLink.style.display = "none";
+  }
+});
+
 function mostrarPopup(imagem, titulo, descricao, preco) {
   fecharPopup();
+
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   overlay.onclick = fecharPopup;
@@ -63,14 +64,13 @@ function mostrarPopup(imagem, titulo, descricao, preco) {
       <p><strong>Larissa:</strong> Já comprei duas vezes, é o meu favorito!</p>
     </div>
     <button class="comprar-btn" onclick="handleComprarAgora('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Comprar agora por ${preco}</button>
-<button id="adicionarAoCarrinhoBtn" class="btn-carrinho" onclick="handleAdicionarAoCarrinho('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Adicionar ao Carrinho</button>
+    <button id="adicionarAoCarrinhoBtn" class="btn-carrinho" onclick="handleAdicionarAoCarrinho('${imagem}', '${titulo}', \`${descricao}\`, '${preco}')">Adicionar ao Carrinho</button>
     <button class="fechar-btn" onclick="fecharPopup()">Fechar</button>
   `;
   document.body.appendChild(popup);
   document.body.style.overflow = 'hidden';
 }
 
-// Fecha o popup
 function fecharPopup() {
   const popup = document.querySelector('.popup');
   const overlay = document.querySelector('.overlay');
@@ -79,18 +79,6 @@ function fecharPopup() {
   document.body.style.overflow = 'auto';
 }
 
-// Ao carregar a página, oculta os botões caso esteja logado
-window.addEventListener('DOMContentLoaded', () => {
-  const estaLogado = localStorage.getItem("usuarioLogado") === "true";
-  if (estaLogado) {
-    const entrar = document.getElementById("btn-entrar");
-    const cadastrar = document.getElementById("btn-cadastrar");
-    if (entrar) entrar.style.display = "none";
-    if (cadastrar) cadastrar.style.display = "none";
-  }
-});
-
-// Adiciona o produto ao carrinho
 function adicionarAoCarrinho(produto) {
   let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
   carrinho.push(produto);
@@ -104,7 +92,6 @@ function adicionarAoCarrinho(produto) {
   alert("Produto adicionado ao carrinho!");
 }
 
-// Botão "Comprar agora"
 function comprarAgora(imagem, titulo, descricao, preco) {
   const produtoSelecionado = {
     imagem: imagem,
@@ -122,8 +109,3 @@ fetch('https://loja-perfume-backend.onrender.com/registro-visita')
   .then(response => response.json())
   .then(data => console.log('Visita registrada:', data))
   .catch(error => console.error('Erro ao registrar visita:', error));
-
-// Função de popup (exemplo, caso não tenha ainda)
-function mostrarPopup(imagem, titulo, descricao, preco) {
-  alert(`${titulo}\n${descricao}\n${preco}`);
-}
