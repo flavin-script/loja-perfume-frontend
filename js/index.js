@@ -28,7 +28,7 @@ function handleComprarAgora(imagem, titulo, descricao, preco) {
 // Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
 const loginLink = document.getElementById('login-link');
 const cadastroLink = document.getElementById('cadastro-link');
-const userLoggedIn = sessionStorage.getItem('userLoggedIn');
+const userLoggedIn = sessionStorage.getItem('usuarioLogado');
 if (userLoggedIn) {
   loginLink.style.display = 'none';
   cadastroLink.style.display = 'none';
