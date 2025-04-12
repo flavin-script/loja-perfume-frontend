@@ -1,3 +1,46 @@
+// Configuração do Supabase
+const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co'; // Substitua pela sua URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua pela sua chave pública
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+// Função para carregar os produtos dinamicamente do Supabase
+async function carregarProdutos() {
+  const { data: produtos, error } = await supabase
+    .from('produtos')
+    .select('*');
+
+  if (error) {
+    console.error('Erro ao buscar produtos:', error);
+    return;
+  }
+
+  const grid = document.querySelector('.produtos-grid');
+  grid.innerHTML = ''; // Limpa os produtos fixos
+
+  produtos.forEach((produto) => {
+    const card = document.createElement('div');
+    card.className = 'produto';
+    card.onclick = () => {
+      mostrarPopup(produto.imagem, produto.titulo, produto.descricao, `R$ ${produto.preco}`);
+    };
+
+    card.innerHTML = `
+      <img src="${produto.imagem}" alt="${produto.titulo}">
+      <p><strong>${produto.titulo}</strong></p>
+      <p class="preco">R$ ${produto.preco}</p>
+      <span class="ver-mais">Ver mais</span>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+// Chama a função ao carregar a página
+window.addEventListener('DOMContentLoaded', () => {
+  carregarProdutos();
+});
+
+// Funções de Carrinho e Compra já existentes
 function usuarioEstaLogado() {
   return sessionStorage.getItem("userLoggedIn") === "true";
 }
