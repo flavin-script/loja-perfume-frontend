@@ -241,20 +241,25 @@ header {
   /* Barra de navegação no mobile */
   nav ul {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row; /* 👈 FORÇA os itens a ficarem lado a lado */
+    justify-content: center;
+    align-items: center;
     width: 100%;
     margin-top: 16px;
+    gap: 12px; /* espaço entre os itens */
+    flex-wrap: wrap; /* evita quebra desorganizada em telas bem pequenas */
   }
 
   nav li {
-    margin: 0 15px;
+    margin: 0;
   }
 
   /* Links no mobile */
   nav a {
-    font-size: 18px;
-    padding: 12px 20px;
+    font-size: 16px;
+    padding: 10px 14px;
     text-align: center;
+    white-space: nowrap;
   }
 }
 }
