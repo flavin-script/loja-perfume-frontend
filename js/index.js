@@ -109,3 +109,4 @@ fetch('https://loja-perfume-backend.onrender.com/registro-visita')
   .then(response => response.json())
   .then(data => console.log('Visita registrada:', data))
   .catch(error => console.error('Erro ao registrar visita:', error));
+

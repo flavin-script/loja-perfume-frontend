@@ -101,8 +101,8 @@
 
   <div class="dashboard">
     <div class="card">
-      <h3>Visitantes</h3>
-      <p id="visitantes">...</p>
+      <h3>Visitas</h3>
+      <p id="visitas">...</p>
     </div>
     <div class="card">
       <h3>Cadastros</h3>
@@ -118,8 +118,8 @@
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
     // Supabase config
-    const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDA5NDA1MCwiZXhwIjoyMDU5NjcwMDUwfQ.xvHdvQ__gr7VIx81ZD4LWFsVr8WybRcd6gVHOCkDBoo';
+    const supabaseUrl = "https://iccsymcldmrjybyukqbv.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDA5NDA1MCwiZXhwIjoyMDU5NjcwMDUwfQ.xvHdvQ__gr7VIx81ZD4LWFsVr8WybRcd6gVHOCkDBoo";
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Segurança
@@ -135,7 +135,7 @@
           .select('*', { count: 'exact', head: true });
 
         if (visitantesErro) throw visitantesErro;
-        document.getElementById('visitantes').textContent = visitantesCount ?? 0;
+        document.getElementById('visitas').textContent = visitantesCount ?? 0;
 
         // Buscar cadastros (tabela: usuarios)
         const { count: cadastrosCount, error: cadastrosErro } = await supabase
@@ -146,7 +146,7 @@
         document.getElementById('cadastros').textContent = cadastrosCount ?? 0;
       } catch (err) {
         console.error('Erro ao buscar dados do painel:', err.message);
-        document.getElementById('visitantes').textContent = 'Erro';
+        document.getElementById('visitas').textContent = 'Erro';
         document.getElementById('cadastros').textContent = 'Erro';
       }
     }
