@@ -173,7 +173,7 @@ header {
   }
 }
 
-/* Responsividade para dispositivos móveis */
+/* Responsividade dos popup para dispositivos móveis */
 @media (max-width: 768px) {
   .popup {
     max-height: 90vh; /* limita a altura da popup */
@@ -197,7 +197,7 @@ header {
     font-size: 12px;
   }
 }
-/*Ajustando cards produtos no mobile*/
+/*Ajustando cards produtos e banner no mobile*/
 @media (max-width: 768px) {
   .produtos-grid {
     display: flex;
@@ -228,6 +228,40 @@ header {
     display: block;
     border-radius: 8px;
   }
+
+  /* Layout para mobile */
+@media (max-width: 768px) {
+  /* Estilo para o cabeçalho no mobile */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  /* Barra de navegação no mobile */
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 16px;
+  }
+
+  nav li {
+    width: 100%; /* Faz com que cada item ocupe 100% da largura da tela */
+    margin: 10px 0;
+  }
+
+  /* Links no mobile */
+  nav a {
+    font-size: 18px;
+    padding: 12px 20px;
+    width: 100%;
+    text-align: left;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+}
 }
 
 
