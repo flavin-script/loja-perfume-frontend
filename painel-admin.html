@@ -18,9 +18,9 @@
       background-color: #b65fcf;
       padding: 20px;
       display: flex;
-      justify-content:space-between;
+      justify-content: space-between;
       align-items: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
     .top-bar h2 {
@@ -85,6 +85,40 @@
       font-size: 15px;
     }
 
+    .product-card {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(182, 95, 207, 0.2);
+    }
+
+    .product-card h4 {
+      margin: 10px 0;
+      color: #b65fcf;
+    }
+
+    .product-card p {
+      margin: 5px 0;
+    }
+
+    .product-card button {
+      margin-top: 10px;
+      background-color: #b65fcf;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .product-card button:hover {
+      background-color: #9c4c96;
+    }
+
     @media (max-width: 768px) {
       .dashboard {
         flex-direction: column;
@@ -113,6 +147,23 @@
       <p><a href="#">Ver lista</a></p>
     </div>
   </div>
+
+  <h2>Gerenciamento de Produtos</h2>
+
+  <!-- Formulário para adicionar produto -->
+  <div class="product-card">
+    <h4>Adicionar Produto</h4>
+    <form id="formAddProduto">
+      <input type="text" id="nomeProduto" placeholder="Nome do Produto" required /><br>
+      <input type="text" id="descricaoProduto" placeholder="Descrição" required /><br>
+      <input type="number" id="precoProduto" placeholder="Preço" required /><br>
+      <input type="text" id="categoriaProduto" placeholder="Categoria" required /><br>
+      <button type="submit">Adicionar Produto</button>
+    </form>
+  </div>
+
+  <!-- Listagem dos produtos -->
+  <div id="produtosList"></div>
 
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
@@ -144,10 +195,81 @@
 
         if (cadastrosErro) throw cadastrosErro;
         document.getElementById('cadastros').textContent = cadastrosCount ?? 0;
+
+        // Carregar produtos
+        listarProdutos();
       } catch (err) {
         console.error('Erro ao buscar dados do painel:', err.message);
         document.getElementById('visitas').textContent = 'Erro';
         document.getElementById('cadastros').textContent = 'Erro';
+      }
+    }
+
+    async function listarProdutos() {
+      try {
+        const { data: produtos, error } = await supabase
+          .from('produtos')
+          .select('*');
+
+        if (error) throw error;
+
+        const produtosList = document.getElementById('produtosList');
+        produtosList.innerHTML = '';
+
+        produtos.forEach(produto => {
+          const produtoDiv = document.createElement('div');
+          produtoDiv.classList.add('product-card');
+          produtoDiv.innerHTML = `
+            <h4>${produto.nome}</h4>
+            <p>${produto.descricao}</p>
+            <p>Preço: R$ ${produto.preco}</p>
+            <p>Categoria: ${produto.categoria}</p>
+            <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
+          `;
+          produtosList.appendChild(produtoDiv);
+        });
+      } catch (err) {
+        console.error('Erro ao carregar produtos:', err.message);
+      }
+    }
+
+    document.getElementById('formAddProduto').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const nome = document.getElementById('nomeProduto').value;
+      const descricao = document.getElementById('descricaoProduto').value;
+      const preco = document.getElementById('precoProduto').value;
+      const categoria = document.getElementById('categoriaProduto').value;
+
+      const novoProduto = { nome, descricao, preco, categoria };
+
+      try {
+        const { data, error } = await supabase
+          .from('produtos')
+          .insert([novoProduto]);
+
+        if (error) throw error;
+        alert('Produto adicionado com sucesso!');
+        listarProdutos();
+      } catch (err) {
+        console.error('Erro ao adicionar produto:', err.message);
+      }
+    });
+
+    async function deletarProduto(id) {
+      if (confirm('Você tem certeza que deseja excluir este produto?')) {
+        try {
+          const { data, error } = await supabase
+            .from('produtos')
+            .delete()
+            .eq('id', id);
+
+          if (error) throw error;
+          alert('Produto excluído com sucesso!');
+          listarProdutos();
+        } catch (err) {
+          console.error('Erro ao excluir produto:', err.message);
+        }
       }
     }
 
