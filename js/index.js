@@ -46,24 +46,26 @@ function usuarioEstaLogado() {
   return sessionStorage.getItem("userLoggedIn") === "true";
 }
 
-// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
+// Chama funções quando a página é carregada
 window.addEventListener('DOMContentLoaded', () => {
+  carregarProdutos();
+
   const loginLink = document.getElementById('login-link');
   const cadastroLink = document.getElementById('cadastro-link');
-  
-  // Verifica se o usuário está logado no momento em que a página foi carregada
+
   const estaLogado = usuarioEstaLogado();
 
   if (loginLink && cadastroLink) {
     if (estaLogado) {
-      loginLink.style.display = "none"; // Oculta o link de login
-      cadastroLink.style.display = "none"; // Oculta o link de cadastro
+      loginLink.style.display = "none";
+      cadastroLink.style.display = "none";
     } else {
-      loginLink.style.display = "block"; // Mostra o link de login
-      cadastroLink.style.display = "block"; // Mostra o link de cadastro
+      loginLink.style.display = "block";
+      cadastroLink.style.display = "block";
     }
   }
 });
+
 
 // Funções de Carrinho e Compra já existentes
 function usuarioEstaLogado() {
