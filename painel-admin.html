@@ -197,86 +197,93 @@
         document.getElementById('cadastros').textContent = cadastrosCount ?? 0;
 
         // Carregar produtos
-        listarProdutos();
-      } catch (err) {
-        console.error('Erro ao buscar dados do painel:', err.message);
-        document.getElementById('visitas').textContent = 'Erro';
-        document.getElementById('cadastros').textContent = 'Erro';
-      }
+      listarProdutos();
+    } catch (err) {
+      console.error('Erro ao buscar dados do painel:', err.message);
+      document.getElementById('visitas').textContent = 'Erro';
+      document.getElementById('cadastros').textContent = 'Erro';
     }
+  }
 
-    async function listarProdutos() {
-      try {
-        const { data: produtos, error } = await supabase
-          .from('produtos')
-          .select('*');
+  async function listarProdutos() {
+    try {
+      const { data: produtos, error } = await supabase
+        .from('produtos')
+        .select('*');
 
-        if (error) throw error;
+      if (error) throw error;
 
-        const produtosList = document.getElementById('produtosList');
-        produtosList.innerHTML = '';
+      const produtosList = document.getElementById('produtosList');
+      produtosList.innerHTML = '';
 
-        produtos.forEach(produto => {
-          const produtoDiv = document.createElement('div');
-          produtoDiv.classList.add('product-card');
-          produtoDiv.innerHTML = `
-            <h4>${produto.titulo}</h4>
-            <p>${produto.descricao}</p>
-            <p>Preço: R$ ${produto.preco}</p>
-            <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
-          `;
-          produtosList.appendChild(produtoDiv);
-        });
-      } catch (err) {
-        console.error('Erro ao carregar produtos:', err.message);
-      }
+      produtos.forEach(produto => {
+        const produtoDiv = document.createElement('div');
+        produtoDiv.classList.add('product-card');
+        produtoDiv.innerHTML = `
+          <h4>${produto.titulo}</h4>
+          <p>${produto.descricao}</p>
+          <p>Preço: R$ ${produto.preco}</p>
+          <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
+        `;
+        produtosList.appendChild(produtoDiv);
+      });
+    } catch (err) {
+      console.error('Erro ao carregar produtos:', err.message);
     }
+  }
 
-    document.getElementById('formAddProduto').addEventListener('submit', async (event) => {
-      event.preventDefault();
+  document.getElementById('formAddProduto').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-      const titulo = document.getElementById('nomeProduto').value;
-      const descricao = document.getElementById('descricaoProduto').value;
-      const preco = document.getElementById('precoProduto').value;
+    const titulo = document.getElementById('nomeProduto').value;
+    const descricao = document.getElementById('descricaoProduto').value;
+    const preco = document.getElementById('precoProduto').value;
+    const imagem = document.getElementById('imagemProduto').value;  // Pegando o link da imagem
 
-      const novoProduto = { titulo, descricao, preco };
+    // Adicionando a imagem ao novoProduto
+    const novoProduto = { 
+      titulo, 
+      descricao, 
+      preco,
+      imagem // Incluindo o campo da imagem
+    };
 
+    try {
+      const { data, error } = await supabase
+        .from('produtos')
+        .insert([novoProduto]);
+
+      if (error) throw error;
+      alert('Produto adicionado com sucesso!');
+      listarProdutos(); // Atualizando a lista de produtos
+    } catch (err) {
+      console.error('Erro ao adicionar produto:', err.message);
+    }
+  });
+
+  async function deletarProduto(id) {
+    if (confirm('Você tem certeza que deseja excluir este produto?')) {
       try {
         const { data, error } = await supabase
           .from('produtos')
-          .insert([novoProduto]);
+          .delete()
+          .eq('id', id);
 
         if (error) throw error;
-        alert('Produto adicionado com sucesso!');
+        alert('Produto excluído com sucesso!');
         listarProdutos();
       } catch (err) {
-        console.error('Erro ao adicionar produto:', err.message);
-      }
-    });
-
-    async function deletarProduto(id) {
-      if (confirm('Você tem certeza que deseja excluir este produto?')) {
-        try {
-          const { data, error } = await supabase
-            .from('produtos')
-            .delete()
-            .eq('id', id);
-
-          if (error) throw error;
-          alert('Produto excluído com sucesso!');
-          listarProdutos();
-        } catch (err) {
-          console.error('Erro ao excluir produto:', err.message);
-        }
+        console.error('Erro ao excluir produto:', err.message);
       }
     }
+  }
 
-    carregarDados();
+  carregarDados();
 
-    function logout() {
-      localStorage.removeItem('admin_autenticado');
-      window.location.href = 'admin-login.html';
-    }
-  </script>
+  function logout() {
+    localStorage.removeItem('admin_autenticado');
+    window.location.href = 'admin-login.html';
+  }
+</script>
 </body>
 </html>
