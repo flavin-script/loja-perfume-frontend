@@ -231,6 +231,14 @@ header {
     display: block;
   }
 }
+/*Arrumando banner*/
+@media (max-width: 768px) {
+  .confira-banner img {
+    max-width: 100%; /* Ajusta a largura da imagem para 100% no mobile */
+    height: auto; /* Garante que a altura da imagem se ajuste automaticamente */
+    margin: 0 auto; /* Centraliza a imagem */
+  }
+}
 
 
 
