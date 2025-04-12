@@ -1,58 +1,38 @@
+// Verifica se o usuário está logado
 function usuarioEstaLogado() {
   return sessionStorage.getItem("userLoggedIn") === "true";
-}
-
-function handleAdicionarAoCarrinho(imagem, titulo, descricao, preco) {
-  if (!usuarioEstaLogado()) {
-    alert("Você precisa estar logado para adicionar ao carrinho.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  const produto = { imagem, titulo, descricao, preco };
-  adicionarAoCarrinho(produto);
-}
-
-function handleComprarAgora(imagem, titulo, descricao, preco) {
-  if (!usuarioEstaLogado()) {
-    alert("Você precisa estar logado para finalizar a compra.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  comprarAgora(imagem, titulo, descricao, preco);
 }
 
 // Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
 window.addEventListener('DOMContentLoaded', () => {
   const loginLink = document.getElementById('login-link');
   const cadastroLink = document.getElementById('cadastro-link');
-  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
+  const estaLogado = usuarioEstaLogado();
 
   if (estaLogado) {
     if (loginLink) loginLink.style.display = "none";
     if (cadastroLink) cadastroLink.style.display = "none";
   }
+
+  carregarProdutos();
+  verificarLogin();
 });
 
 // Configuração do Supabase
-const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co'; // Substitua pela sua URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua pela sua chave pública
+const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// Função para carregar os produtos dinamicamente do Supabase
+// Carrega os produtos do Supabase
 async function carregarProdutos() {
-  const { data: produtos, error } = await supabase
-    .from('produtos')
-    .select('*');
-
+  const { data: produtos, error } = await supabase.from('produtos').select('*');
   if (error) {
     console.error('Erro ao buscar produtos:', error);
     return;
   }
 
   const grid = document.querySelector('.produtos-grid');
-  grid.innerHTML = ''; // Limpa os produtos fixos
+  grid.innerHTML = '';
 
   produtos.forEach((produto) => {
     const card = document.createElement('div');
@@ -67,44 +47,11 @@ async function carregarProdutos() {
       <p class="preco">R$ ${produto.preco}</p>
       <span class="ver-mais">Ver mais</span>
     `;
-
     grid.appendChild(card);
   });
 }
 
-// Chama a função ao carregar a página
-window.addEventListener('DOMContentLoaded', () => {
-  carregarProdutos();
-  verificarLogin();
-});
-
-// Funções de Carrinho e Compra já existentes
-function usuarioEstaLogado() {
-  return sessionStorage.getItem("userLoggedIn") === "true";
-}
-
-function handleAdicionarAoCarrinho(imagem, titulo, descricao, preco) {
-  if (!usuarioEstaLogado()) {
-    alert("Você precisa estar logado para adicionar ao carrinho.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  const produto = { imagem, titulo, descricao, preco };
-  adicionarAoCarrinho(produto);
-}
-
-function handleComprarAgora(imagem, titulo, descricao, preco) {
-  if (!usuarioEstaLogado()) {
-    alert("Você precisa estar logado para finalizar a compra.");
-    window.location.href = "login.html";
-    return;
-  }
-
-  comprarAgora(imagem, titulo, descricao, preco);
-}
-
-// Função de Popup
+// Exibe o popup de produto
 function mostrarPopup(imagem, titulo, descricao, preco) {
   fecharPopup();
 
@@ -141,6 +88,7 @@ function mostrarPopup(imagem, titulo, descricao, preco) {
   document.body.style.overflow = 'hidden';
 }
 
+// Fecha o popup
 function fecharPopup() {
   const popup = document.querySelector('.popup');
   const overlay = document.querySelector('.overlay');
@@ -149,6 +97,7 @@ function fecharPopup() {
   document.body.style.overflow = 'auto';
 }
 
+// Adiciona produto ao carrinho
 function adicionarAoCarrinho(produto) {
   let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
   carrinho.push(produto);
@@ -162,29 +111,50 @@ function adicionarAoCarrinho(produto) {
   alert("Produto adicionado ao carrinho!");
 }
 
+// Fluxo de "Comprar agora"
 function comprarAgora(imagem, titulo, descricao, preco) {
   const produtoSelecionado = {
-    imagem: imagem,
-    titulo: titulo,
-    descricao: descricao,
-    preco: preco,
+    imagem,
+    titulo,
+    descricao,
+    preco,
     quantidade: 1
   };
   localStorage.setItem("produtoSelecionado", JSON.stringify(produtoSelecionado));
   window.location.href = "carrinho.html";
 }
 
-// Requisição ao carregar o site
+// Verifica se usuário está logado ao tentar comprar
+function handleComprarAgora(imagem, titulo, descricao, preco) {
+  if (!usuarioEstaLogado()) {
+    alert("Você precisa estar logado para finalizar a compra.");
+    window.location.href = "login.html";
+    return;
+  }
+  comprarAgora(imagem, titulo, descricao, preco);
+}
+
+// Verifica se usuário está logado ao adicionar ao carrinho
+function handleAdicionarAoCarrinho(imagem, titulo, descricao, preco) {
+  if (!usuarioEstaLogado()) {
+    alert("Você precisa estar logado para adicionar ao carrinho.");
+    window.location.href = "login.html";
+    return;
+  }
+  const produto = { imagem, titulo, descricao, preco };
+  adicionarAoCarrinho(produto);
+}
+
+// Registra visita ao backend
 fetch('https://loja-perfume-backend.onrender.com/registro-visita')
   .then(response => response.json())
   .then(data => console.log('Visita registrada:', data))
   .catch(error => console.error('Erro ao registrar visita:', error));
 
-// Função para adicionar um novo produto
-document.getElementById('form-produto').addEventListener('submit', function(event) {
-  event.preventDefault();  // Previne o envio padrão do formulário
+// Submissão de novo produto
+document.getElementById('form-produto')?.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-  // Pegando os dados do formulário
   const produto = {
     titulo: document.getElementById('titulo').value,
     descricao: document.getElementById('descricao').value,
@@ -192,19 +162,13 @@ document.getElementById('form-produto').addEventListener('submit', function(even
     imagem: "https://i.imgur.com/xiN3xPy.jpg",
   };
 
-  // Enviando os dados para o Supabase
-  const url = 'https://iccsymcldmrjybyukqbv.supabase.co';
-  const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
-
-  const headers = {
-    'Content-Type': 'application/json',
-    'apikey': API_KEY,
-    'Authorization': `Bearer ${API_KEY}`
-  };
-
-  fetch(`${url}/rest/v1/produtos`, {
+  fetch(`${supabaseUrl}/rest/v1/produtos`, {
     method: 'POST',
-    headers: headers,
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': supabaseKey,
+      'Authorization': `Bearer ${supabaseKey}`
+    },
     body: JSON.stringify(produto),
   })
     .then(response => response.json())
