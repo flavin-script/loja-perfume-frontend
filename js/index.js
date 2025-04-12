@@ -176,7 +176,7 @@ const headers = {
   'Authorization': `Bearer ${API_KEY}`
 };
 
-  fetch(url, {
+fetch(`${url}/rest/v1/produtos`, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(produto),
