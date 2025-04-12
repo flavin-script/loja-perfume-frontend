@@ -38,7 +38,26 @@ async function carregarProdutos() {
 // Chama a função ao carregar a página
 window.addEventListener('DOMContentLoaded', () => {
   carregarProdutos();
+  verificarLogin();
 });
+
+// Função de verificação de login e ocultação de links
+function verificarLogin() {
+  const loginLink = document.getElementById('login-link');
+  const cadastroLink = document.getElementById('cadastro-link');
+  const sairLink = document.getElementById('sair-link');
+  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
+
+  if (estaLogado) {
+    if (loginLink) loginLink.style.display = "none";
+    if (cadastroLink) cadastroLink.style.display = "none";
+    if (sairLink) sairLink.style.display = "block";  // Mostrar o link de sair
+  } else {
+    if (loginLink) loginLink.style.display = "block";
+    if (cadastroLink) cadastroLink.style.display = "block";
+    if (sairLink) sairLink.style.display = "none";  // Ocultar o link de sair
+  }
+}
 
 // Funções de Carrinho e Compra já existentes
 function usuarioEstaLogado() {
@@ -65,18 +84,6 @@ function handleComprarAgora(imagem, titulo, descricao, preco) {
 
   comprarAgora(imagem, titulo, descricao, preco);
 }
-
-// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
-window.addEventListener('DOMContentLoaded', () => {
-  const loginLink = document.getElementById('login-link');
-  const cadastroLink = document.getElementById('cadastro-link');
-  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
-
-  if (estaLogado) {
-    if (loginLink) loginLink.style.display = "none";
-    if (cadastroLink) cadastroLink.style.display = "none";
-  }
-});
 
 // Função de Popup
 function mostrarPopup(imagem, titulo, descricao, preco) {
@@ -167,16 +174,16 @@ document.getElementById('form-produto').addEventListener('submit', function(even
   };
 
   // Enviando os dados para o Supabase
-const url = 'https://iccsymcldmrjybyukqbv.supabase.co';
-const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
+  const url = 'https://iccsymcldmrjybyukqbv.supabase.co';
+  const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
 
-const headers = {
-  'Content-Type': 'application/json',
-  'apikey': API_KEY,
-  'Authorization': `Bearer ${API_KEY}`
-};
+  const headers = {
+    'Content-Type': 'application/json',
+    'apikey': API_KEY,
+    'Authorization': `Bearer ${API_KEY}`
+  };
 
-fetch(`${url}/rest/v1/produtos`, {
+  fetch(`${url}/rest/v1/produtos`, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(produto),
