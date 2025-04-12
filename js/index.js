@@ -1,3 +1,6 @@
+function usuarioEstaLogado() {
+  return sessionStorage.getItem("userLoggedIn") === "true";
+}
 // Configuração do Supabase
 const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co'; // Substitua pela sua URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua pela sua chave pública
@@ -41,28 +44,15 @@ window.addEventListener('DOMContentLoaded', () => {
   verificarLogin();
 });
 
-// Função para verificar se o usuário está logado
-function usuarioEstaLogado() {
-  return sessionStorage.getItem("userLoggedIn") === "true";
-}
-
-// Chama funções quando a página é carregada
+// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
 window.addEventListener('DOMContentLoaded', () => {
-  carregarProdutos();
-
   const loginLink = document.getElementById('login-link');
   const cadastroLink = document.getElementById('cadastro-link');
+  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
 
-  const estaLogado = usuarioEstaLogado();
-
-  if (loginLink && cadastroLink) {
-    if (estaLogado) {
-      loginLink.style.display = "none";
-      cadastroLink.style.display = "none";
-    } else {
-      loginLink.style.display = "block";
-      cadastroLink.style.display = "block";
-    }
+  if (estaLogado) {
+    if (loginLink) loginLink.style.display = "none";
+    if (cadastroLink) cadastroLink.style.display = "none";
   }
 });
 
