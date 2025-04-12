@@ -220,7 +220,7 @@
           const produtoDiv = document.createElement('div');
           produtoDiv.classList.add('product-card');
           produtoDiv.innerHTML = `
-            <h4>${produto.nome}</h4>
+            <h4>${produto.titulo}</h4>
             <p>${produto.descricao}</p>
             <p>Preço: R$ ${produto.preco}</p>
             <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
@@ -235,11 +235,11 @@
     document.getElementById('formAddProduto').addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const nome = document.getElementById('nomeProduto').value;
+      const titulo = document.getElementById('nomeProduto').value;
       const descricao = document.getElementById('descricaoProduto').value;
       const preco = document.getElementById('precoProduto').value;
 
-      const novoProduto = { nome, descricao, preco };
+      const novoProduto = { titulo, descricao, preco };
 
       try {
         const { data, error } = await supabase
