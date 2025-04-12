@@ -1,6 +1,40 @@
 function usuarioEstaLogado() {
   return sessionStorage.getItem("userLoggedIn") === "true";
 }
+
+function handleAdicionarAoCarrinho(imagem, titulo, descricao, preco) {
+  if (!usuarioEstaLogado()) {
+    alert("Você precisa estar logado para adicionar ao carrinho.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const produto = { imagem, titulo, descricao, preco };
+  adicionarAoCarrinho(produto);
+}
+
+function handleComprarAgora(imagem, titulo, descricao, preco) {
+  if (!usuarioEstaLogado()) {
+    alert("Você precisa estar logado para finalizar a compra.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  comprarAgora(imagem, titulo, descricao, preco);
+}
+
+// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
+window.addEventListener('DOMContentLoaded', () => {
+  const loginLink = document.getElementById('login-link');
+  const cadastroLink = document.getElementById('cadastro-link');
+  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
+
+  if (estaLogado) {
+    if (loginLink) loginLink.style.display = "none";
+    if (cadastroLink) cadastroLink.style.display = "none";
+  }
+});
+
 // Configuração do Supabase
 const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co'; // Substitua pela sua URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0'; // Substitua pela sua chave pública
@@ -43,19 +77,6 @@ window.addEventListener('DOMContentLoaded', () => {
   carregarProdutos();
   verificarLogin();
 });
-
-// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
-window.addEventListener('DOMContentLoaded', () => {
-  const loginLink = document.getElementById('login-link');
-  const cadastroLink = document.getElementById('cadastro-link');
-  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
-
-  if (estaLogado) {
-    if (loginLink) loginLink.style.display = "none";
-    if (cadastroLink) cadastroLink.style.display = "none";
-  }
-});
-
 
 // Funções de Carrinho e Compra já existentes
 function usuarioEstaLogado() {
