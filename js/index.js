@@ -78,6 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Função de Popup
 function mostrarPopup(imagem, titulo, descricao, preco) {
   fecharPopup();
 
@@ -152,3 +153,39 @@ fetch('https://loja-perfume-backend.onrender.com/registro-visita')
   .then(response => response.json())
   .then(data => console.log('Visita registrada:', data))
   .catch(error => console.error('Erro ao registrar visita:', error));
+
+// Função para adicionar um novo produto
+document.getElementById('form-produto').addEventListener('submit', function(event) {
+  event.preventDefault();  // Previne o envio padrão do formulário
+
+  // Pegando os dados do formulário
+  const produto = {
+    titulo: document.getElementById('titulo').value,
+    descricao: document.getElementById('descricao').value,
+    preco: parseFloat(document.getElementById('preco').value),
+    imagem: document.getElementById('imagem').value,
+  };
+
+  // Enviando os dados para o Supabase
+  const url = 'https://iccsymcldmrjybyukqbv.supabase.co/rest/v1/produtos';
+  const headers = {
+    'Content-Type': 'application/json',
+    'apikey': eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0,  // Substitua pela sua chave
+    'Authorization': `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0}`,  // Substitua pela sua chave
+  };
+
+  fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(produto),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Produto adicionado', data);
+      alert('Produto adicionado com sucesso!');
+    })
+    .catch(error => {
+      console.error('Erro ao adicionar produto:', error);
+      alert('Erro ao adicionar produto!');
+    });
+});
