@@ -163,7 +163,7 @@ document.getElementById('form-produto').addEventListener('submit', function(even
     titulo: document.getElementById('titulo').value,
     descricao: document.getElementById('descricao').value,
     preco: parseFloat(document.getElementById('preco').value),
-    imagem: document.getElementById('imagem').value,
+    imagem: "https://i.imgur.com/xiN3xPy.jpg",
   };
 
   // Enviando os dados para o Supabase
