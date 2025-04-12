@@ -151,16 +151,16 @@
   <h2>Gerenciamento de Produtos</h2>
 
   <!-- Formulário para adicionar produto -->
-  <div class="product-card">
-    <h4>Adicionar Produto</h4>
-    <form id="formAddProduto">
-      <input type="text" id="nomeProduto" placeholder="Nome do Produto" required /><br>
-      <input type="text" id="descricaoProduto" placeholder="Descrição" required /><br>
-      <input type="number" id="precoProduto" placeholder="Preço" required /><br>
-      <input type="text" id="categoriaProduto" placeholder="Categoria" required /><br>
-      <button type="submit">Adicionar Produto</button>
-    </form>
-  </div>
+<div class="product-card">
+  <h4>Adicionar Produto</h4>
+  <form id="formAddProduto">
+    <input type="text" id="nomeProduto" placeholder="Nome do Produto" required /><br>
+    <input type="text" id="descricaoProduto" placeholder="Descrição" required /><br>
+    <input type="number" id="precoProduto" placeholder="Preço" required /><br>
+    <input type="text" id="imagemProduto" placeholder="Link da Imagem" required /><br>
+    <button type="submit">Adicionar Produto</button>
+  </form>
+</div>
 
   <!-- Listagem dos produtos -->
   <div id="produtosList"></div>
@@ -223,7 +223,6 @@
             <h4>${produto.nome}</h4>
             <p>${produto.descricao}</p>
             <p>Preço: R$ ${produto.preco}</p>
-            <p>Categoria: ${produto.categoria}</p>
             <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
           `;
           produtosList.appendChild(produtoDiv);
@@ -239,7 +238,6 @@
       const nome = document.getElementById('nomeProduto').value;
       const descricao = document.getElementById('descricaoProduto').value;
       const preco = document.getElementById('precoProduto').value;
-      const categoria = document.getElementById('categoriaProduto').value;
 
       const novoProduto = { nome, descricao, preco, categoria };
 
