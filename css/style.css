@@ -198,6 +198,7 @@ header {
   }
 }
 
+/*Melhorando cabeçalho no mobile*/
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -205,7 +206,7 @@ header {
     padding: 16px;
   }
 
-  nav ul {
+  .menu {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -218,20 +219,18 @@ header {
     gap: 20px;
   }
 
-  nav li {
-    flex: 0;
+  .menu li {
     margin: 0;
   }
 
-  nav a {
+  .menu a {
     font-size: 16px;
     padding: 8px 12px;
-    display: block;
     text-align: center;
     white-space: nowrap;
+    display: block;
   }
 }
-
 
 
 
