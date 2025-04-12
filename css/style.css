@@ -181,7 +181,7 @@ header {
     padding: 20px;
   }
 
-  .popup .comprar-btn,
+  .popup .comprar-btn, .popup .adicionarAoCarrinhoBtn,
   .popup .fechar-btn {
     width: 100%;
     box-sizing: border-box;
