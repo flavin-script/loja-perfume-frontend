@@ -41,23 +41,29 @@ window.addEventListener('DOMContentLoaded', () => {
   verificarLogin();
 });
 
-// Função de verificação de login e ocultação de links
-function verificarLogin() {
+// Função para verificar se o usuário está logado
+function usuarioEstaLogado() {
+  return sessionStorage.getItem("userLoggedIn") === "true";
+}
+
+// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
+window.addEventListener('DOMContentLoaded', () => {
   const loginLink = document.getElementById('login-link');
   const cadastroLink = document.getElementById('cadastro-link');
-  const sairLink = document.getElementById('sair-link');
-  const estaLogado = sessionStorage.getItem('userLoggedIn') === "true";
+  
+  // Verifica se o usuário está logado no momento em que a página foi carregada
+  const estaLogado = usuarioEstaLogado();
 
-  if (estaLogado) {
-    if (loginLink) loginLink.style.display = "none";
-    if (cadastroLink) cadastroLink.style.display = "none";
-    if (sairLink) sairLink.style.display = "block";  // Mostrar o link de sair
-  } else {
-    if (loginLink) loginLink.style.display = "block";
-    if (cadastroLink) cadastroLink.style.display = "block";
-    if (sairLink) sairLink.style.display = "none";  // Ocultar o link de sair
+  if (loginLink && cadastroLink) {
+    if (estaLogado) {
+      loginLink.style.display = "none"; // Oculta o link de login
+      cadastroLink.style.display = "none"; // Oculta o link de cadastro
+    } else {
+      loginLink.style.display = "block"; // Mostra o link de login
+      cadastroLink.style.display = "block"; // Mostra o link de cadastro
+    }
   }
-}
+});
 
 // Funções de Carrinho e Compra já existentes
 function usuarioEstaLogado() {
