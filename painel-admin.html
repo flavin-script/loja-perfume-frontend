@@ -239,7 +239,7 @@
       const descricao = document.getElementById('descricaoProduto').value;
       const preco = document.getElementById('precoProduto').value;
 
-      const novoProduto = { nome, descricao, preco, categoria };
+      const novoProduto = { nome, descricao, preco };
 
       try {
         const { data, error } = await supabase
