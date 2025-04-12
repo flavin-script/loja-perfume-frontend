@@ -258,7 +258,24 @@ header {
     justify-content: center;
     width: 100%;
   }
+
+  /* Aqui ajustamos as seções "Home", "Perfumes", "Contato" */
+.home, .perfumes, .contato {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap; /* Para garantir que os itens não quebrem e se adaptem */
+  box-sizing: border-box;
 }
+
+.home > div, .perfumes > div, .contato > div {
+  flex: 1 1 calc(33% - 20px); /* Faz as seções se alinharem lado a lado no mobile */
+  box-sizing: border-box;
+}
+}
+
+
 
 /*Arrumando banner*/
 @media (max-width: 768px) {
