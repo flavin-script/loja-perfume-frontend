@@ -52,6 +52,11 @@
       </div>
 
       <h3>Confira:</h3>
+    
+      <div class="confira-banner">
+        <img src="img/banner9.png" alt="Banner Promoção" />
+      </div>
+
       <div class="produtos-grid">
         <div class="produto" onclick="mostrarPopup('img/perfume1.jpg', 'Perfume Elegance', 'Notas amadeiradas e envolventes para ocasiões especiais.', 'R$ 159,90')">
           <img src="img/perfume1.jpg" alt="Perfume 1">
@@ -81,6 +86,13 @@
           <span class="ver-mais">Ver mais</span>
         </div>
 
+        <div class="produto" onclick="mostrarPopup('img/perfume1.jpg', 'Perfume Elegance', 'Notas amadeiradas e envolventes para ocasiões especiais.', 'R$ 159,90')">
+          <img src="img/perfume1.jpg" alt="Perfume 1">
+          <p><strong>Perfume Elegance</strong></p>
+          <p class="preco">R$ 159,90</p>
+          <span class="ver-mais">Ver mais</span>
+        </div>
+
       </div>
     </section>
   </main>
@@ -90,35 +102,10 @@
   </footer>
   <!--importa os scripts da pagina-->
   <script src="js/index.js"></script>
+   
+  <script type="module" src="js/visitas.js"></script> <!-- Novo script -->
+  <!--!-->
 
-   <!-- SCRIPT PARA REGISTRAR VISITAS -->
-   <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-    const supabaseUrl = "https://iccsymcldmrjybyukqbv.supabase.co";
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0";
-
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    async function registrarVisita() {
-      try {
-        const cidade = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const dispositivo = navigator.userAgent;
-
-        const { error } = await supabase.from('visitas').insert([{
-          cidade: cidade,
-          dispositivo: dispositivo,
-          criado_em: new Date().toISOString(),
-        }]);
-
-        if (error) throw error;
-        console.log('Visita registrada com sucesso');
-      } catch (err) {
-        console.error('Erro ao registrar visita:', err.message);
-      }
-    }
-
-    registrarVisita();
   </script>
 </body>
 </html>
