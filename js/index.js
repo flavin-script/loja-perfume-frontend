@@ -167,12 +167,14 @@ document.getElementById('form-produto').addEventListener('submit', function(even
   };
 
   // Enviando os dados para o Supabase
-  const url = 'https://iccsymcldmrjybyukqbv.supabase.co/rest/v1/produtos';
-  const headers = {
-    'Content-Type': 'application/json',
-    'apikey': eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0,  // Substitua pela sua chave
-    'Authorization': `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0}`,  // Substitua pela sua chave
-  };
+const url = 'https://iccsymcldmrjybyukqbv.supabase.co';
+const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
+
+const headers = {
+  'Content-Type': 'application/json',
+  'apikey': API_KEY,
+  'Authorization': `Bearer ${API_KEY}`
+};
 
   fetch(url, {
     method: 'POST',
