@@ -197,7 +197,40 @@ header {
     font-size: 12px;
   }
 }
-/*Ajustando menu no mobile*/
+/*Ajustando cards produtos no mobile*/
+@media (max-width: 768px) {
+  .produtos-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 12px;
+  }
+
+  .produto {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: #111; /* opcional, melhora contraste no mobile */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .produto img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .confira-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+}
+
+
 
 /* ===== PRODUTOS ===== */
 .produtos {
