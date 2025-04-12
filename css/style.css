@@ -201,10 +201,19 @@ header {
 /*Melhorando cabeçalho no mobile*/
 @media (max-width: 768px) {
   header {
+    width: 100%;
+    background-color: #000; /* Garante que o fundo seja preto */
+    margin: 0; /* Remove qualquer margem adicional */
+    padding: 0; /* Remove o padding para garantir que o cabeçalho se estenda até a borda */
     flex-direction: column;
     align-items: center;
     padding: 16px;
   }
+  
+  .container {
+    width: 100%; /* Garante que o conteúdo ocupe toda a largura disponível */
+  }
+
 
   .menu {
     display: flex;
