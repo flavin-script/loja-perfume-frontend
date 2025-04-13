@@ -78,20 +78,14 @@
       margin: 0;
     }
 
-    .card a {
-      color: #fff;
-      text-decoration: underline;
-      font-weight: 500;
-      font-size: 15px;
-    }
-
     .product-card {
       background-color: #1e1e1e;
       padding: 20px;
       border-radius: 10px;
-      margin-top: 20px;
+      margin: 20px auto;
       text-align: center;
       box-shadow: 0 0 10px rgba(182, 95, 207, 0.2);
+      max-width: 500px;
     }
 
     .product-card h4 {
@@ -103,16 +97,20 @@
       margin: 5px 0;
     }
 
+    .product-card input,
     .product-card button {
-      margin-top: 10px;
+      margin: 8px 0;
+      padding: 10px;
+      width: 90%;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .product-card button {
       background-color: #b65fcf;
       color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
     }
 
     .product-card button:hover {
@@ -142,46 +140,36 @@
       <h3>Cadastros</h3>
       <p id="cadastros">...</p>
     </div>
-    <div class="card">
-      <h3>Usuários</h3>
-      <p><a href="#">Ver lista</a></p>
-    </div>
   </div>
 
-  <h2>Gerenciamento de Produtos</h2>
+  <h2 style="text-align: center;">Gerenciamento de Produtos</h2>
 
-  <!-- Formulário para adicionar produto -->
-<div class="product-card">
-  <h4>Adicionar Produto</h4>
-  <form id="formAddProduto">
-    <input type="text" id="nomeProduto" placeholder="Nome do Produto" required /><br>
-    <input type="text" id="descricaoProduto" placeholder="Descrição" required /><br>
-    <input type="number" id="precoProduto" placeholder="Preço" required /><br>
-    <input type="text" id="imagemProduto" placeholder="Link da Imagem" required /><br>
-    <button onclick="uploadImagem()">Enviar Imagem</button>
-    <button type="submit">Adicionar Produto</button>
-  </form>
-</div>
+  <div class="product-card">
+    <h4>Adicionar Produto</h4>
+    <form id="formAddProduto">
+      <input type="text" id="titulo" placeholder="Nome do Produto" required />
+      <input type="text" id="descricao" placeholder="Descrição" required />
+      <input type="number" id="preco" placeholder="Preço" required />
+      <input type="file" id="imagem-input" accept="image/*" required />
+      <button type="submit">Adicionar Produto</button>
+    </form>
+  </div>
 
-  <!-- Listagem dos produtos -->
-  <div id="produtosList"></div>
+  <div id="produtosList" style="padding: 20px;"></div>
 
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-    // Supabase config
     const supabaseUrl = "https://iccsymcldmrjybyukqbv.supabase.co";
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDA5NDA1MCwiZXhwIjoyMDU5NjcwMDUwfQ.xvHdvQ__gr7VIx81ZD4LWFsVr8WybRcd6gVHOCkDBoo";
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Segurança
     if (localStorage.getItem('admin_autenticado') !== 'true') {
       window.location.href = 'admin-login.html';
     }
 
     async function carregarDados() {
       try {
-        // Buscar visitantes (tabela: visitantes)
         const { count: visitantesCount, error: visitantesErro } = await supabase
           .from('visitas')
           .select('*', { count: 'exact', head: true });
@@ -189,7 +177,6 @@
         if (visitantesErro) throw visitantesErro;
         document.getElementById('visitas').textContent = visitantesCount ?? 0;
 
-        // Buscar cadastros (tabela: usuarios)
         const { count: cadastrosCount, error: cadastrosErro } = await supabase
           .from('usuarios')
           .select('*', { count: 'exact', head: true });
@@ -197,144 +184,118 @@
         if (cadastrosErro) throw cadastrosErro;
         document.getElementById('cadastros').textContent = cadastrosCount ?? 0;
 
-        // Carregar produtos
-      listarProdutos();
-    } catch (err) {
-      console.error('Erro ao buscar dados do painel:', err.message);
-      document.getElementById('visitas').textContent = 'Erro';
-      document.getElementById('cadastros').textContent = 'Erro';
-    }
-  }
-
-  async function listarProdutos() {
-    try {
-      const { data: produtos, error } = await supabase
-        .from('produtos')
-        .select('*');
-
-      if (error) throw error;
-
-      const produtosList = document.getElementById('produtosList');
-      produtosList.innerHTML = '';
-
-      produtos.forEach(produto => {
-        const produtoDiv = document.createElement('div');
-        produtoDiv.classList.add('product-card');
-        produtoDiv.innerHTML = `
-          <h4>${produto.titulo}</h4>
-          <p>${produto.descricao}</p>
-          <p>Preço: R$ ${produto.preco}</p>
-          <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
-        `;
-        produtosList.appendChild(produtoDiv);
-      });
-    } catch (err) {
-      console.error('Erro ao carregar produtos:', err.message);
-    }
-  }
-
-  document.getElementById('formAddProduto').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const titulo = document.getElementById('nomeProduto').value;
-    const descricao = document.getElementById('descricaoProduto').value;
-    const preco = document.getElementById('precoProduto').value;
-    const imagem = document.getElementById('imagemProduto').value;  // Pegando o link da imagem
-
-    async function cadastrarProduto() {
-  const titulo = document.getElementById('titulo').value;
-  const descricao = document.getElementById('descricao').value;
-  const preco = parseFloat(document.getElementById('preco').value);
-  const inputImagem = document.getElementById('imagem-input');
-  const imagemFile = inputImagem.files[0];
-
-  if (!imagemFile) {
-    alert('Selecione uma imagem!');
-    return;
-  }
-
-  // Cria um nome único para o arquivo
-  const nomeArquivo = `${Date.now()}-${imagemFile.name}`;
-
-  // Envia para o Supabase Storage
-  const { data: uploadData, error: uploadError } = await supabase
-    .storage
-    .from('imagem') // Substitua pelo nome do seu bucket
-    .upload(nomeArquivo, imagemFile);
-
-  if (uploadError) {
-    console.error('Erro ao enviar imagem:', uploadError);
-    alert('Erro ao enviar imagem.');
-    return;
-  }
-
-  // Obtém a URL pública da imagem
-  const { data: publicUrlData } = supabase
-    .storage
-    .from('imagem')
-    .getPublicUrl(nomeArquivo);
-
-  const imagemUrl = publicUrlData.publicUrl;
-
-  // Agora cria o objeto com a URL da imagem
-  const novoProduto = { 
-    titulo, 
-    descricao, 
-    preco,
-    imagem: imagemUrl
-  };
-
-  // Envia para a tabela "produtos"
-  const { error: insertError } = await supabase
-    .from('produtos')
-    .insert([novoProduto]);
-
-  if (insertError) {
-    console.error('Erro ao cadastrar produto:', insertError);
-    alert('Erro ao cadastrar produto.');
-    return;
-  }
-
-  alert('Produto cadastrado com sucesso!');
-  // Você pode também limpar os campos aqui, se quiser
-}
-
-    try {
-      const { data, error } = await supabase
-        .from('produtos')
-        .insert([novoProduto]);
-
-      if (error) throw error;
-      alert('Produto adicionado com sucesso!');
-      listarProdutos(); // Atualizando a lista de produtos
-    } catch (err) {
-      console.error('Erro ao adicionar produto:', err.message);
-    }
-  });
-
-  async function deletarProduto(id) {
-    if (confirm('Você tem certeza que deseja excluir este produto?')) {
-      try {
-        const { data, error } = await supabase
-          .from('produtos')
-          .delete()
-          .eq('id', id);
-
-        if (error) throw error;
-        alert('Produto excluído com sucesso!');
         listarProdutos();
       } catch (err) {
-        console.error('Erro ao excluir produto:', err.message);
+        console.error('Erro ao buscar dados do painel:', err.message);
+        document.getElementById('visitas').textContent = 'Erro';
+        document.getElementById('cadastros').textContent = 'Erro';
       }
     }
-  }
 
-  carregarDados();
+    async function listarProdutos() {
+      try {
+        const { data: produtos, error } = await supabase
+          .from('produtos')
+          .select('*');
 
-  function logout() {
-    localStorage.removeItem('admin_autenticado');
-    window.location.href = 'admin-login.html';
-  }
-</script>
+        if (error) throw error;
+
+        const produtosList = document.getElementById('produtosList');
+        produtosList.innerHTML = '';
+
+        produtos.forEach(produto => {
+          const produtoDiv = document.createElement('div');
+          produtoDiv.classList.add('product-card');
+          produtoDiv.innerHTML = `
+            <h4>${produto.titulo}</h4>
+            <img src="${produto.imagem}" alt="${produto.titulo}" style="max-width:150px;">
+            <p>${produto.descricao}</p>
+            <p>Preço: R$ ${produto.preco}</p>
+            <button onclick="deletarProduto(${produto.id})">Excluir Produto</button>
+          `;
+          produtosList.appendChild(produtoDiv);
+        });
+      } catch (err) {
+        console.error('Erro ao carregar produtos:', err.message);
+      }
+    }
+
+    document.getElementById('formAddProduto').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const titulo = document.getElementById('titulo').value;
+      const descricao = document.getElementById('descricao').value;
+      const preco = parseFloat(document.getElementById('preco').value);
+      const inputImagem = document.getElementById('imagem-input');
+      const imagemFile = inputImagem.files[0];
+
+      if (!imagemFile) {
+        alert('Selecione uma imagem!');
+        return;
+      }
+
+      const nomeArquivo = `${Date.now()}-${imagemFile.name}`;
+
+      const { error: uploadError } = await supabase
+        .storage
+        .from('imagem')
+        .upload(nomeArquivo, imagemFile);
+
+      if (uploadError) {
+        console.error('Erro ao enviar imagem:', uploadError);
+        alert('Erro ao enviar imagem.');
+        return;
+      }
+
+      const { data: publicUrlData } = supabase
+        .storage
+        .from('imagem')
+        .getPublicUrl(nomeArquivo);
+
+      const imagemUrl = publicUrlData.publicUrl;
+
+      const novoProduto = { titulo, descricao, preco, imagem: imagemUrl };
+
+      try {
+        const { error: insertError } = await supabase
+          .from('produtos')
+          .insert([novoProduto]);
+
+        if (insertError) throw insertError;
+
+        alert('Produto cadastrado com sucesso!');
+        document.getElementById('formAddProduto').reset();
+        listarProdutos();
+      } catch (err) {
+        console.error('Erro ao adicionar produto:', err.message);
+        alert('Erro ao adicionar produto.');
+      }
+    });
+
+    window.deletarProduto = async function(id) {
+      if (confirm('Você tem certeza que deseja excluir este produto?')) {
+        try {
+          const { error } = await supabase
+            .from('produtos')
+            .delete()
+            .eq('id', id);
+
+          if (error) throw error;
+
+          alert('Produto excluído com sucesso!');
+          listarProdutos();
+        } catch (err) {
+          console.error('Erro ao excluir produto:', err.message);
+        }
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('admin_autenticado');
+      window.location.href = 'admin-login.html';
+    }
+
+    carregarDados();
+  </script>
 </body>
 </html>
