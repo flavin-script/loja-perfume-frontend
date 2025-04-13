@@ -1,57 +1,50 @@
-// Verifica se o usuário está logado
-function usuarioEstaLogado() {
-  return sessionStorage.getItem("userLoggedIn") === "true";
+// Criação do cliente Supabase (deixe sempre isso antes de tudo)
+const supabase = supabase.createClient('https://qtqohsyasvzzqnbfhnun.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0cW9oc3lhc3Z6enFuYmZobnVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAwMDk4MDAsImV4cCI6MjAyNTU4NTgwMH0.3BlX0WWR_NtoOtZCVhFb6c0cJe4vFEflmGnDHQIQvhs');
+
+// Função para verificar se o usuário está logado
+async function verificarLogin() {
+  const { data, error } = await supabase.auth.getSession();
+  if (error || !data.session) {
+    window.location.href = 'login.html'; // Redireciona se não estiver logado
+  } else {
+    const userEmail = data.session.user.email;
+    document.getElementById('user-name').textContent = userEmail;
+  }
 }
 
-// Oculta os botões "Entrar" e "Cadastrar" se o usuário estiver logado
-window.addEventListener('DOMContentLoaded', () => {
-  const loginLink = document.getElementById('login-link');
-  const cadastroLink = document.getElementById('cadastro-link');
-  const estaLogado = usuarioEstaLogado();
-
-  if (estaLogado) {
-    if (loginLink) loginLink.style.display = "none";
-    if (cadastroLink) cadastroLink.style.display = "none";
-  }
-
-  listarProdutos();
-  verificarLogin();
-});
-
-// Configuração do Supabase
-const supabaseUrl = 'https://iccsymcldmrjybyukqbv.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljY3N5bWNsZG1yanlieXVrcWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTQwNTAsImV4cCI6MjA1OTY3MDA1MH0.yzmH4-GQQgLG1wJAGRwvo19AV-qwIwCy56Q0M78l7u0';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-// Carrega os produtos do Supabase
+// Função para listar produtos do Supabase
 async function listarProdutos() {
-  const { data: produtos, error } = await supabase.from('produtos').select('*');
+  const { data, error } = await supabase.from('produtos').select('*');
+  const lista = document.getElementById('lista-produtos');
+
   if (error) {
-    console.error('Erro ao buscar produtos:', error);
+    console.error('Erro ao listar produtos:', error.message);
+    lista.innerHTML = '<p>Erro ao carregar produtos.</p>';
     return;
   }
 
-  const grid = document.querySelector('.produtos-grid');
-  if (!grid) return;
+  if (!data || data.length === 0) {
+    lista.innerHTML = '<p>Nenhum produto encontrado.</p>';
+    return;
+  }
 
-  grid.innerHTML = '';
-
-  produtos.forEach((produto) => {
-    const card = document.createElement('div');
-    card.className = 'produto';
-    card.onclick = () => {
-      mostrarPopup(produto.imagem, produto.titulo, produto.descricao, `R$ ${produto.preco}`);
-    };
-
-    card.innerHTML = `
-      <img src="${produto.imagem}" alt="${produto.titulo}">
-      <p><strong>${produto.titulo}</strong></p>
-      <p class="preco">R$ ${produto.preco}</p>
-      <span class="ver-mais">Ver mais</span>
+  lista.innerHTML = '';
+  data.forEach(produto => {
+    const item = document.createElement('div');
+    item.classList.add('produto');
+    item.innerHTML = `
+      <h3>${produto.nome}</h3>
+      <p>${produto.descricao}</p>
     `;
-    grid.appendChild(card);
+    lista.appendChild(item);
   });
 }
+
+// Quando a página carregar, verificar login e listar os produtos
+document.addEventListener('DOMContentLoaded', async () => {
+  await verificarLogin();
+  await listarProdutos();
+});
 
 // Exibe o popup de produto
 function mostrarPopup(imagem, titulo, descricao, preco) {
