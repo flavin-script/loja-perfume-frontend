@@ -32,6 +32,8 @@ async function listarProdutos() {
   }
 
   const grid = document.querySelector('.produtos-grid');
+  if (!grid) return;
+
   grid.innerHTML = '';
 
   produtos.forEach((produto) => {
