@@ -24,7 +24,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Carrega os produtos do Supabase
-async function carregarProdutos() {
+async function listarProdutos() {
   const { data: produtos, error } = await supabase.from('produtos').select('*');
   if (error) {
     console.error('Erro ao buscar produtos:', error);
