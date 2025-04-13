@@ -1,6 +1,8 @@
-// Inicialize o cliente Supabase corretamente (a URL e a chave estão corretas)
+// Inicializando a variável 'supabase' depois de declarar a URL e a chave corretamente.
 const supabaseUrl = 'https://qtqohsyasvzzqnbfhnun.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0cW9oc3lhc3Z6enFuYmZobnVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAwMDk4MDAsImV4cCI6MjAyNTU4NTgwMH0.3BlX0WWR_NtoOtZCVhFb6c0cJe4vFEflmGnDHQIQvhs';
+
+// Inicialize o cliente supabase após declarar as variáveis de URL e chave
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Função para verificar se o usuário está logado
