@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (cadastroLink) cadastroLink.style.display = "none";
   }
 
-  carregarProdutos();
+  listarProdutos();
   verificarLogin();
 });
 
