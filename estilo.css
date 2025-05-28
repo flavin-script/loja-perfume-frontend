@@ -65,6 +65,12 @@ html {
     padding: 10px;
     font-size: 14px; /* Ajuste conforme ficar melhor */
   }
+
+  #inicio {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 /*TABLETS*/
@@ -97,5 +103,11 @@ html {
     padding: 10px;
     font-size: 14px; /* Ajuste conforme ficar melhor */
   }
+  #inicio {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
+
 
