@@ -1,0 +1,34 @@
+body {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Ou só nos títulos */
+h1, h2, h3 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.w3-sidebar {
+  background-color: rgba(0, 0, 0, 0); /* Sidebar transparente */
+  backdrop-filter: blur(1px); /* Opcional: efeito vidro */
+  width: 100px;
+}
+
+
+
+#inicio {
+  height: 100vh;
+  background: url('imagens/fundo.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.ativo {
+  background-color: #00b894 !important;
+  color: white !important;
+}

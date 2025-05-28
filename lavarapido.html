@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<title>Lava Rápido VL</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="estilo.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="w3-black">
+  <nav class="w3-sidebar w3-bar-block w3-center">
+  
+      <a href="#inicio" class="w3-bar-item w3-button w3-padding- w3-center w3-hover-text-black">
+        <p>Inicio</p>  
+  </a>
+
+  <a href="#ref" class="w3-bar-item w3-button w3-padding-8 w3-center w3-hover-text-black">
+        <p>Conheça nosso trabalho</p>
+
+      </a>
+      
+      <a href="#agende" class="w3-bar-item w3-button w3-padding-8 w-center w3-hover-text-black">
+      <p>Agende Já</p>
+      </a>
+
+      
+  </nav>
+
+  <div class="" id="main">
+    <header class=" w3-center" id="inicio"></header>
+  </div>
+
+
+<div class="w3-content w3-padding-64" id="ref">
+                <h2 class="">Referências</h2>
+                
+               <div class="w3-row">
+                <div class="w3-col s6 w3-padding-64">
+                    <img src="imagens/ref (1).jpg" alt="ref" class="w3-image" width="100%">
+                </div>
+                <div class="w3-col s6 w3-padding-32" style="padding-left: 40px;">
+                    <h3 class="w3-text-cyan w3-padding-16">Lavagem Detalhada</h3>
+
+                    <p class="w3-text-cyan"></p>
+
+                    <p>Nossa lavagem detalhada é feita com cuidado e atenção em cada detalhe do seu carro. Utilizamos produtos premium e técnicas especiais para garantir uma limpeza profunda, proteção da pintura e um acabamento impecável.<br>Seu veículo recebe o tratamento que merece, ficando protegido, brilhante e com aparência de novo.
+
+</p>
+                    
+
+                    <p class="w3-text-cyan">Produtos De Alta Qualidade</p>
+
+                    <P>Utilizamos somente produtos de alta qualidade, especialmente selecionados para proteger e cuidar do seu veículo. São detergentes, ceras e shampoos profissionais que limpam profundamente sem agredir a pintura, além de proteger contra sujeira, riscos e desgaste.<br>Com ingredientes avançados, nossos produtos garantem um acabamento brilhante, duradouro e seguro para todas as superfícies do seu carro.
+
+</P>
+                    
+                </div>
+                
+                <div class="w3-row">
+                <div class="w3-col s6">
+                    <img src="imagens/ref (2).jpg" alt="ref" class="w3-image" width="100%">
+                </div>
+                <div class="w3-col s6" style="padding-left: 40px;">
+                    <h3 class="w3-text-cyan">Clientes Satisfeitos</h3>
+
+                    <p class="w3-text-cyan">Benefícios</p>
+
+                    <p> A lavagem detalhada utilizando produtos premium oferece uma limpeza profunda e eficaz, removendo sujeiras difíceis sem danificar a pintura ou os acabamentos do veículo. Além disso, esses produtos proporcionam proteção extra contra riscos, manchas e desgaste, preservando a beleza e o brilho por muito mais tempo.<br>Com cuidados especializados, seu carro mantém a aparência de novo, valoriza seu investimento e garante maior durabilidade das superfícies internas e externas.</p>
+
+                    <p class="w3-text-cyan">Atuação Profissional</p>
+
+                    <p>Nosso time é formado por profissionais treinados e capacitados para oferecer o melhor cuidado ao seu carro. Com conhecimento técnico e atenção aos mínimos detalhes, eles aplicam as técnicas corretas e utilizam os produtos premium da forma ideal, garantindo limpeza eficiente sem causar danos.<br>Esse cuidado especializado assegura que seu veículo receba um tratamento de alta qualidade, preservando sua beleza e valor por muito mais tempo.
+
+</p>
+                </div>
+                </div>
+
+
+               </div>
+
+              
+            </div>
+
+
+
+
+  <div class="w3-content w3-padding-64 w3-text-grey" id="agende">
+    <h2 class="w3-text-white">Agende Já</h2>
+    <div class="w3-section">
+    <form class="formagenda" onsubmit="return enviarPedido(event)">
+      <!--NOME-->
+      <p>
+        <input class="w3-input w3-padding-16" type="texto" placeholder="Seu Nome" required name="Seu Nome" id="inputnome">      
+      </p>
+
+      <!-- Veículo -->
+      <p class="w3-margin-bottom">Escolha o tipo de veículo:</p>
+      <div class="w3-bar w3-margin-bottom">
+        <button class="w3-bar-item w3-button w3-border w3-round" type="button" onclick="selveiculo ('carro')" id="btn-carro">
+          🚗 Carro
+        </button>
+        <button class="w3-bar-item w3-button w3-border w3-round" type="button" onclick="selveiculo ('moto')" id="btn-moto">
+          🏍️ Moto
+        </button>
+      </div>
+
+      <!--Data-Hora-->
+      <p></p>
+
+      <!-- Transporte -->
+      <p class="w3-margin-bottom">Como será?</p>
+      <div class="w3-bar w3-margin-bottom">
+        <button class="w3-bar-item w3-button w3-border w3-round" type="button" onclick="selopcao ('levar')" id="btn-levar">
+          Vou levar o veículo
+        </button>
+        <button class="w3-bar-item w3-button w3-border w3-round" type="button" onclick="selopcao ('buscar')" id="btn-buscar">
+          Preciso que busque
+        </button>
+      </div>
+
+      <!-- Pagamento -->
+      <p class="w3-margin-bottom">Forma de pagamento:</p>
+      <div class="w3-bar w3-margin-bottom">
+        <button class="w3-bar-item w3-button w3-border w3-round" type="button" onclick="selpagamento ('pix')" id="btn-pix">
+        <img src="imagens/pix.png" alt="Pix" style="height:20px; vertical-align:middle;">
+    Pix
+        </button>
+        <button class="w3-bar-item w3-button w3-border w3-round" type="button" onclick="selpagamento ('hora')" id="btn-hora">
+          💵 Pagamento na hora
+        </button>
+      </div>
+
+      <!-- Enviar -->
+      <p>
+        <button class="w3-button w3-black w3-padding-large w3-round" type="submit">
+          <a>
+            <i class="fa fa-paper-plane">  Enviar</i>
+          </a>
+        </button>
+      </p>
+
+      
+
+    </form>
+    </div>
+
+    <div class="w3-content w3-container w3-center">
+            <footer>
+                <a href="https://www.facebook.com/?locale=pt_BR" target="_blank">
+                <i class="fa fa-facebook w3-xlarge w3-cyan w3-container"></i>
+                </a>
+
+                <a href="https://www.instagram.com/sem/campaign/emailsignup/?campaign_id=13534421690&extra_1=s%7Cc%7C547348930993%7Ce%7Cinstagram%20%27%7C&placement=&creative=547348930993&keyword=instagram%20%27&partner_id=googlesem&extra_2=campaignid%3D13534421690%26adgroupid%3D126262409974%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D%26target%3D%26targetid%3Dkwd-1321618851291%26loc_physical_ms%3D9220001%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gad_source=1&gad_campaignid=13534421690&gbraid=0AAAAAD2MkOWGSpTFXB30nA_vslXwQsVSQ&gclid=Cj0KCQjwxdXBBhDEARIsAAUkP6gi7UJ3pbnB7WxCkTCtyslyqH06FliE2d1H_OBowxuPJU03mCtoGeAaAgZfEALw_wcB" target="_blank">
+                <i class="fa fa-instagram w3-xlarge w3-cyan w3-container"></i>
+                </a>
+
+                <a href="https://www.snapchat.com/" target="_blank">
+                <i class="fa fa-snapchat w3-container w3-xlarge w3-cyan"></i>
+                </a>
+
+                <a href="https://www.snapchat.com/" target="_blank">
+                <i class="fa fa-pinterest-p w3-container w3-xlarge w3-cyan"></i>
+                </a>
+                
+                <a href="https://x.com/">
+                <i class="fa fa-twitter w3-container w3-xlarge w3-cyan"></i>
+                </a>
+                
+                <p class="w3-text-cyan">© 2025 Powered by <a href="https://www.facebook.com/flavio.gabriel.16121?locale=pt_BR" target="_blank">Flavio Gabriel Balão.</a>Todos os direitos reservados.</p>
+               
+            </footer>
+            </div>
+
+  </div>
+
+  
+
+  
+  
+   
+
+<!--SCRIPT JAVA-->
+
+<script>
+let nome= "";
+let veiculo= "";
+let data= "";
+let opcao= "";
+let pagamento= "";
+
+function selveiculo(valor){
+  veiculo = valor;
+  console.log('Veículo',   veiculo); 
+}
+function selopcao(valor){
+  opcao = valor;
+  console.log('Preferência',  opcao);
+}
+
+function selpagamento(valor){
+  pagamento = valor;
+  console.log('Pagamento',  pagamento);
+}
+
+function enviarPedido(event){
+  event.preventDefault();
+
+  let nome =document.getElementById('inputnome').value;
+  
+  if (!veiculo || !opcao || !pagamento) {
+    alert('Por favor, selecione todas as opções!');
+    return false;
+  }
+
+  let chavePix = "meuchavepix@exemplo.com"; // troque pela sua chave real
+
+  let mensagem = `*Agendamento de Serviço*\n\n` +
+                 `Nome: ${nome}\n` +
+                 `Veículo: ${veiculo}\n` +
+                 `Opção: ${opcao == 'levar' ? 'Vou levar o veículo' : 'Preciso que busque'}\n` +
+                 `Pagamento: ${pagamento == 'pix' ? 'Pix' : 'Pagamento na hora'}\n`;
+
+  if (pagamento === 'pix') {
+    mensagem += `\nChave Pix para pagamento:\n${chavePix}\n`;
+  }
+
+  mensagem += `\nAguardo a confirmação!`;
+
+
+let numero = '5517988361626'; // Coloca aqui o número com DDI (55) e DDD
+let link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+window.open(link, '_blank');
+}
+
+function selveiculo(valor) {
+  veiculo = valor;
+  console.log('Veículo', veiculo);
+
+  // Remove classe 'ativo' de todos os botões de veículo
+  const botoes = document.querySelectorAll('.btn-veiculo');
+  botoes.forEach(btn => btn.classList.remove('ativo'));
+
+  // Adiciona classe 'ativo' no botão clicado
+  const botaoClicado = document.getElementById('btn-' + valor);
+  botaoClicado.classList.add('ativo');
+}
+
+function selopcao(valor) {
+  opcao = valor;
+  console.log('Preferência', opcao);
+
+  const botoes = document.querySelectorAll('.btn-opcao');
+  botoes.forEach(btn => btn.classList.remove('ativo'));
+
+  const botaoClicado = document.getElementById('btn-' + valor);
+  botaoClicado.classList.add('ativo');
+}
+
+function selpagamento(valor) {
+  pagamento = valor;
+  console.log('Pagamento', pagamento);
+
+  const botoes = document.querySelectorAll('.btn-pagamento');
+  botoes.forEach(btn => btn.classList.remove('ativo'));
+
+  const botaoClicado = document.getElementById('btn-' + valor);
+  botaoClicado.classList.add('ativo');
+}
+</script>
+
+
+
+
+
+</body>
+</html>
