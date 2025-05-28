@@ -75,6 +75,17 @@ html {
     background-repeat: no-repeat;
     height: 100vh; /* Mantém ocupando a tela toda */
   }
+
+
+   /* Faz as colunas ficarem largura total (100%) */
+  .w3-col.s6 {
+    width: 80% !important;
+   align-items: center;
+    padding-left: 0 !important;  /* remove o padding lateral */
+    padding-right: 0 !important;
+  }
+
+  
 }
 
 /*TABLETS*/
@@ -115,6 +126,16 @@ html {
     background-position: top center;
     background-repeat: no-repeat;
     height: 100vh; /* Mantém ocupando a tela toda */
+ }
+
+ /* Faz as colunas ficarem largura total (100%) */
+  .w3-col.s6 {
+    width: 80% !important;
+    align-self: center;
+    padding-left: 0 !important;  /* remove o padding lateral */
+    padding-right: 0 !important;
   }
+
+  
 }
 
