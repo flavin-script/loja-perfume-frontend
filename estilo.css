@@ -67,9 +67,13 @@ html {
   }
 
   #inicio {
-    background-size: contain;
-    background-position: center;
+ 
+    background-image: url('imagens/fundo2.png');
+   
+    background-size: cover;
+    background-position: top center;
     background-repeat: no-repeat;
+    height: 100vh; /* Mantém ocupando a tela toda */
   }
 }
 
@@ -104,10 +108,13 @@ html {
     font-size: 14px; /* Ajuste conforme ficar melhor */
   }
   #inicio {
-    background-size: contain;
-    background-position: center;
+ 
+    background-image: url('imagens/fundo2.png');
+    
+    background-size: cover;
+    background-position: top center;
     background-repeat: no-repeat;
+    height: 100vh; /* Mantém ocupando a tela toda */
   }
 }
-
 
