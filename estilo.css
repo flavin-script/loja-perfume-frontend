@@ -79,8 +79,8 @@ html {
 
    /* Faz as colunas ficarem largura total (100%) */
   .w3-col.s6 {
-    width: 80% !important;
-   align-items: center;
+    width: 100% !important;
+   
     padding-left: 0 !important;  /* remove o padding lateral */
     padding-right: 0 !important;
   }
@@ -130,8 +130,8 @@ html {
 
  /* Faz as colunas ficarem largura total (100%) */
   .w3-col.s6 {
-    width: 80% !important;
-    align-self: center;
+    width: 100% !important;
+    
     padding-left: 0 !important;  /* remove o padding lateral */
     padding-right: 0 !important;
   }
